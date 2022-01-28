@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/components/theme.dart';
 import 'package:mobile/pages/auth/auth_page.dart';
 
 class WelcomePage extends StatelessWidget {
@@ -12,6 +13,13 @@ class WelcomePage extends StatelessWidget {
         MaterialPageRoute(builder: (builder) => const AuthPage()),
       ),
     );
-    return Container();
+    return const Scaffold(
+      body: Center(
+        child: Text(
+          'Добро пожаловать. Удачных покупок!',
+          style: TextStyle(color: CColors.red, fontSize: 24),textAlign: TextAlign.center,
+        ),
+      ),
+    );
   }
 }
