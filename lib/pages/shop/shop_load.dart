@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/components/theme.dart';
 import 'package:mobile/http_client.dart';
+import 'package:mobile/models/catalogs.dart';
 import 'package:mobile/pages/shop/shop_page.dart';
 
 class ShopLoad extends StatefulWidget {
@@ -11,12 +12,12 @@ class ShopLoad extends StatefulWidget {
 }
 
 class _ShopLoadState extends State<ShopLoad> {
-  bool isLoaded = false;
+  bool isLoaded = true;
   var data;
 
   @override
   void initState() {
-    HttpClient().getData().then((value) => null).then((value) {
+    HttpClient().getCatalogs().then((CatalogsModel value) {
       isLoaded = true;
       data = value;
     });
@@ -26,8 +27,8 @@ class _ShopLoadState extends State<ShopLoad> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: isLoaded ? const ShopPage() : const Center(
-          child: CircularProgressIndicator(color: CColors.red,)),
+      body: isLoaded ? ShopPage() : const Center(
+          child: CircularProgressIndicator(color: CColors.red,strokeWidth: 6,)),
     );
   }
 }

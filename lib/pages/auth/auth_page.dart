@@ -15,7 +15,7 @@ class AuthPage extends StatelessWidget {
         width: double.infinity,
         height: double.infinity,
         child: Center(
-          child: Container(
+          child: SizedBox(
             width: MediaQuery.of(context).size.width * 0.7,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,

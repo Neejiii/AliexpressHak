@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:mobile/components/theme.dart';
 import 'package:mobile/pages/shop/shop_load.dart';
 
@@ -29,7 +28,7 @@ class NavbarState extends State<Navbar> {
         items: const [
           BottomNavigationBarItem(
               icon: Icon(Icons.shopping_bag_rounded),
-              label: 'Шоппинг'),
+              label: 'Каталок'),
           BottomNavigationBarItem(
               icon: Icon(Icons.person),
               label: 'Мой профиль'),
