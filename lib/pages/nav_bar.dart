@@ -1,6 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile/components/theme.dart';
 import 'package:mobile/pages/shop/shop_load.dart';
+
+import 'account/profile.dart';
 
 class Navbar extends StatefulWidget {
   const Navbar({Key? key}) : super(key: key);
@@ -12,41 +15,92 @@ class Navbar extends StatefulWidget {
 class NavbarState extends State<Navbar> {
   final myKey = GlobalKey<NavbarState>();
   int currentIndex = 1;
-  int seletedItem = 0;
+  int _seletedItem = 0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // Нижняя навигационная панель
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        backgroundColor: const Color(0xFFFFFFFF),
-        unselectedItemColor: Colors.black54,
-        selectedIconTheme: const IconThemeData(color: CColors.red),
-        selectedLabelStyle: const TextStyle(color: Colors.grey),
-        selectedItemColor: CColors.red,
-        items: const [
-          BottomNavigationBarItem(
-              icon: Icon(Icons.shopping_bag_rounded),
-              label: 'Каталок'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.person),
-              label: 'Мой профиль'),
-        ],
-        currentIndex: seletedItem,
-        onTap: (index) {
-          setState(
-                () {
-              seletedItem = index;
-            },
-          );
-        },
-      ),
+      extendBody: true,
+      bottomNavigationBar: ClipRRect(
+          borderRadius: const BorderRadius.only(
+            topRight: Radius.circular(20),
+            topLeft: Radius.circular(20),
+          ),
+          child: Container(
+            color: CColors.white,
+            width: double.infinity,
+            height: 80,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                navButton(CupertinoIcons.list_bullet, 'Каталог', 0),
+                navButton(CupertinoIcons.cart, 'Корзина', 1),
+                circleAdd(),
+                navButton(Icons.favorite_border, 'Избранное', 2),
+                navButton(CupertinoIcons.person_crop_circle, 'Аккаунт', 3),
+              ],
+            ),
+          )),
       body: IndexedStack(
         children: const [
           ShopLoad(),
+          ShopLoad(),
+          ShopLoad(),
+          ProfilePage(),
         ],
-        index: seletedItem,
+        index: _seletedItem,
+      ),
+    );
+  }
+
+  Widget circleAdd() {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(25),
+      child: Container(
+        width: 40,
+        height: 40,
+        color: CColors.dark_grey,
+        child: Icon(
+          Icons.add_rounded,
+          color: CColors.white,
+          size: 30,
+        ),
+      ),
+    );
+  }
+
+  Widget navButton(IconData icon, String txt, int index) {
+    return SizedBox(
+      width: 80,
+      height: 40,
+      child: InkWell(
+        onTap: () {
+          setState(() {
+            _seletedItem = index;
+          });
+        },
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Icon(
+              icon,
+              color: _seletedItem == index ? CColors.dark_grey : CColors.grey,
+            ),
+            txt.isNotEmpty
+                ? FittedBox(
+                    child: Text(
+                      txt,
+                      style: TextStyle(
+                          color: _seletedItem == index
+                              ? CColors.dark_grey
+                              : CColors.grey,
+                          fontWeight: FontWeight.w400,
+                          fontSize: 10),
+                    ),
+                  )
+                : Container()
+          ],
+        ),
       ),
     );
   }

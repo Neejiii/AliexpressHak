@@ -1,25 +1,26 @@
+import 'dart:convert';
+
 import 'package:http/http.dart' as http;
 import 'package:mobile/mock.dart';
 
-import 'models/catalogs.dart';
+import 'models/categories.dart';
 
 class HttpClient {
-  static const url = '';
+  static const url = '151.248.117.229:8000';
 
-  /// request example
-  Future<void> getData() async {
-    final response = await http.get(Uri.http(url, "/api/project/all"));
-    var data;
-    if (response.statusCode < 300) {
-      // data = jsonParce(response.body);
-      return data;
+  Future<CategoriesModel> getCatalogs() async {
+    print(123);
+    final response = await http.get(Uri.http(url, "v1/api/dau/catalog"));
+    print(1232);
+    if (response.statusCode == 200) {
+      return categoriesModelFromJson(utf8.decode(response.bodyBytes));
     } else {
-      throw ('getData STATUS CODE: ' + response.statusCode.toString());
+      throw ('getCatalogs STATUS CODE: ' + response.statusCode.toString());
     }
   }
-
-  Future<CatalogsModel> getCatalogs() async {
-    final response = catalogsFromJson(catalog.toString());
-    return response;
-  }
+  //
+  // Future<CatalogsModel> getCatalogs() async {
+  //   final response = catalogsFromJson(catalog.toString());
+  //   return response;
+  // }
 }

@@ -1,32 +1,47 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/components/theme.dart';
+import 'package:mobile/models/singleton.dart';
+import 'package:provider/provider.dart';
 
 class CompilationCard extends StatelessWidget {
-  const CompilationCard({Key? key}) : super(key: key);
+  final int index;
+
+  const CompilationCard({Key? key, required this.index}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final categories = Provider.of<SingletonProvider>(context).categories;
     return Container(
       width: 100,
       height: 100,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(16),
         color: Colors.white,
+        boxShadow: const [
+          BoxShadow(
+              color: CColors.grey,
+              offset: Offset(0, 1),
+              blurRadius: 1,
+              blurStyle: BlurStyle.inner),
+        ],
       ),
       child: Column(
         children: [
           Expanded(
             flex: 5,
-            child: Container(
+            child: SizedBox(
               child: Stack(
                 children: [
                   Positioned(
-                    child: Container(
-                      decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(20),
-                          topRight: Radius.circular(20),
+                    child: SizedBox(
+                      height: double.infinity,
+                      child: ClipRRect(
+                        borderRadius: const BorderRadius.vertical(
+                          top: Radius.circular(25),
                         ),
-                        color: Colors.amberAccent,
+                        child: Image.network(
+                            categories.categories?[index].pictureUrl ?? '',
+                            fit: BoxFit.cover),
                       ),
                     ),
                   ),
@@ -43,9 +58,9 @@ class CompilationCard extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          Icon(
+                          const Icon(
                             Icons.favorite,
-                            color: Colors.red,
+                            color: CColors.dark_grey,
                             size: 20,
                           ),
                           Text('12')
@@ -64,24 +79,24 @@ class CompilationCard extends StatelessWidget {
                 padding: const EdgeInsets.all(12),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children:  const [
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
                     Text(
-                      'Заголовок подборки',
-                      maxLines: 2,
+                      categories.categories![index].title,
                       overflow: TextOverflow.ellipsis,
+                      maxLines: 2,
                       style: const TextStyle(
                           fontWeight: FontWeight.w500, fontSize: 15),
                     ),
-                    FittedBox(
-                      child: Text(
-                        'Описание',
-                        maxLines: 2,
-                        textAlign: TextAlign.left,
-                        style: const TextStyle(
-                            fontWeight: FontWeight.w400,
-                            fontSize: 14,
-                            color: Colors.grey),
-                      ),
+                    Text(
+                      categories.categories![index].categoryId,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      textAlign: TextAlign.left,
+                      style: const TextStyle(
+                          fontWeight: FontWeight.w400,
+                          fontSize: 12,
+                          color: Colors.grey),
                     ),
                   ],
                 ),

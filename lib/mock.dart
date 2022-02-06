@@ -1,4 +1,4 @@
-import 'package:mobile/models/catalogs.dart';
+import 'package:mobile/models/categories.dart';
 
 final catalog = {
   "catalogs": [

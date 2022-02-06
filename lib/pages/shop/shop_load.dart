@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/components/theme.dart';
 import 'package:mobile/http_client.dart';
-import 'package:mobile/models/catalogs.dart';
+import 'package:mobile/models/categories.dart';
+import 'package:mobile/models/singleton.dart';
 import 'package:mobile/pages/shop/shop_page.dart';
+import 'package:provider/provider.dart';
 
 class ShopLoad extends StatefulWidget {
   const ShopLoad({Key? key}) : super(key: key);
@@ -12,14 +14,15 @@ class ShopLoad extends StatefulWidget {
 }
 
 class _ShopLoadState extends State<ShopLoad> {
-  bool isLoaded = true;
-  var data;
+  bool isLoaded = false;
 
   @override
   void initState() {
-    HttpClient().getCatalogs().then((CatalogsModel value) {
+    HttpClient().getCatalogs().then((CategoriesModel value) {
       isLoaded = true;
-      data = value;
+      Provider.of<SingletonProvider>(context,listen: false).categories = value;
+      setState(() {
+      });
     });
     super.initState();
   }
@@ -27,7 +30,7 @@ class _ShopLoadState extends State<ShopLoad> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: isLoaded ? ShopPage() : const Center(
+      body: isLoaded ? const ShopPage() : const Center(
           child: CircularProgressIndicator(color: CColors.red,strokeWidth: 6,)),
     );
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/components/theme.dart';
 
 class SearchBar extends StatelessWidget {
   const SearchBar({Key? key}) : super(key: key);
@@ -7,7 +8,7 @@ class SearchBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          color: const Color(0xFFEFEFEF),
+          color: CColors.light_grey,
           borderRadius: BorderRadius.circular(8)),
       margin: const EdgeInsets.all(16),
       width: double.infinity,
@@ -19,7 +20,7 @@ class SearchBar extends StatelessWidget {
             Icon(
               Icons.search,
               size: 32,
-              color: Color(0xFF9C9C9C),
+              color: CColors.grey,
             ),
             Text(
               'Поиск',

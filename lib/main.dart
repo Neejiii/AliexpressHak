@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/models/singleton.dart';
 import 'package:mobile/pages/auth/auth_page.dart';
 import 'package:provider/provider.dart';
-import 'models/catalogs.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,10 +14,13 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider<CatalogsModel>(
-            create: (context) => CatalogsModel(catalogs: []))
+        ChangeNotifierProvider<SingletonProvider>(
+            create: (context) => SingletonProvider())
       ],
-      child: const MaterialApp(
+      child:  MaterialApp(
+        theme: ThemeData(
+          fontFamily: 'Montserrat',
+        ),
         home: Scaffold(
           body: SafeArea(
             child: AuthPage(),
