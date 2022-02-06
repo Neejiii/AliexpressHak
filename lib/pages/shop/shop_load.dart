@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/components/circular_indicator.dart';
 import 'package:mobile/components/theme.dart';
 import 'package:mobile/http_client.dart';
 import 'package:mobile/models/categories.dart';
@@ -14,16 +15,10 @@ class ShopLoad extends StatefulWidget {
 }
 
 class _ShopLoadState extends State<ShopLoad> {
-  bool isLoaded = false;
+  bool isLoaded = true;
 
   @override
   void initState() {
-    HttpClient().getCatalogs().then((CategoriesModel value) {
-      isLoaded = true;
-      Provider.of<SingletonProvider>(context,listen: false).categories = value;
-      setState(() {
-      });
-    });
     super.initState();
   }
 
@@ -31,7 +26,7 @@ class _ShopLoadState extends State<ShopLoad> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: isLoaded ? const ShopPage() : const Center(
-          child: CircularProgressIndicator(color: CColors.red,strokeWidth: 6,)),
+          child: CircularIndicator()),
     );
   }
 }

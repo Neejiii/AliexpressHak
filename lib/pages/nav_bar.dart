@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:mobile/components/theme.dart';
 import 'package:mobile/pages/shop/shop_load.dart';
 
 import 'account/profile.dart';
+import 'cart/cart_load.dart';
 
 class Navbar extends StatefulWidget {
   const Navbar({Key? key}) : super(key: key);
@@ -31,20 +33,20 @@ class NavbarState extends State<Navbar> {
             width: double.infinity,
             height: 80,
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                navButton(CupertinoIcons.list_bullet, 'Каталог', 0),
-                navButton(CupertinoIcons.cart, 'Корзина', 1),
+                navButton('catalog', 'Каталог', 0),
+                navButton('cart', 'Корзина', 1),
                 circleAdd(),
-                navButton(Icons.favorite_border, 'Избранное', 2),
-                navButton(CupertinoIcons.person_crop_circle, 'Аккаунт', 3),
+                navButton('heart', 'Избранное', 2),
+                navButton('account', 'Аккаунт', 3),
               ],
             ),
           )),
       body: IndexedStack(
         children: const [
           ShopLoad(),
-          ShopLoad(),
+          CartLoad(),
           ShopLoad(),
           ProfilePage(),
         ],
@@ -60,7 +62,7 @@ class NavbarState extends State<Navbar> {
         width: 40,
         height: 40,
         color: CColors.dark_grey,
-        child: Icon(
+        child: const Icon(
           Icons.add_rounded,
           color: CColors.white,
           size: 30,
@@ -69,7 +71,7 @@ class NavbarState extends State<Navbar> {
     );
   }
 
-  Widget navButton(IconData icon, String txt, int index) {
+  Widget navButton(String icon, String txt, int index) {
     return SizedBox(
       width: 80,
       height: 40,
@@ -82,9 +84,13 @@ class NavbarState extends State<Navbar> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Icon(
-              icon,
-              color: _seletedItem == index ? CColors.dark_grey : CColors.grey,
+            SizedBox(
+              height: 24,
+              width: 24,
+              child: SvgPicture.asset(
+                'assets/icons/$icon.svg',
+                color: _seletedItem == index ? CColors.dark_grey : CColors.grey,
+              ),
             ),
             txt.isNotEmpty
                 ? FittedBox(

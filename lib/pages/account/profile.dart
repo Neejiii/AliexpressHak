@@ -9,7 +9,7 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  var data = [
+  List<String> data = [
     'Мои подборки',
     'Мои заказы',
     'История заказов',
@@ -31,14 +31,14 @@ class _ProfilePageState extends State<ProfilePage> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       height: 80,
                       width: 80,
                       child: CircleAvatar(
                         backgroundImage: AssetImage("assets/images/theman.png"),
                       ),
                     ),
-                    SizedBox(width: 20),
+                    const SizedBox(width: 20),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -82,7 +82,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         children: [
                           Expanded(
                             child: Text(
-                              data[i] ?? 'empty',
+                              data[i],
                               style: const TextStyle(fontSize: 16),
                               textAlign: TextAlign.left,
                             ),

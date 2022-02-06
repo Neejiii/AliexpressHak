@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/components/theme.dart';
 import 'package:mobile/models/singleton.dart';
 import 'package:mobile/pages/auth/auth_page.dart';
 import 'package:provider/provider.dart';
@@ -15,13 +16,15 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<SingletonProvider>(
-            create: (context) => SingletonProvider())
+            create: (context) => SingletonProvider()),
       ],
-      child:  MaterialApp(
+      child: MaterialApp(
         theme: ThemeData(
           fontFamily: 'Montserrat',
+          colorScheme:
+              ColorScheme.fromSwatch().copyWith(secondary: CColors.dark_grey),
         ),
-        home: Scaffold(
+        home: const Scaffold(
           body: SafeArea(
             child: AuthPage(),
           ),

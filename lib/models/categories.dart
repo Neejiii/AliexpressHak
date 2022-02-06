@@ -26,13 +26,13 @@ class Category {
   String categoryId;
   String title;
   String pictureUrl;
-  int parentId;
+  String parentId;
 
   factory Category.fromJson(Map<String, dynamic> json) => Category(
     categoryId: json["category_id"] ?? '',
     title: json["title"] ?? '',
     pictureUrl: json["picture_url"] ?? '',
-    parentId: json["parent_id"] ?? 0,
+    parentId: json["parent_id"] ?? '',
   );
 
 }

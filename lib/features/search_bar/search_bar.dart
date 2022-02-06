@@ -27,7 +27,7 @@ class SearchBar extends StatelessWidget {
               style: TextStyle(
                 color: Color(0xFF9C9C9C),
               ),
-            )
+            ),
           ],
         ),
       ),

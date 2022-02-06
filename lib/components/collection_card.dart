@@ -3,14 +3,20 @@ import 'package:mobile/components/theme.dart';
 import 'package:mobile/models/singleton.dart';
 import 'package:provider/provider.dart';
 
-class CompilationCard extends StatelessWidget {
+class CollectionCard extends StatefulWidget {
   final int index;
 
-  const CompilationCard({Key? key, required this.index}) : super(key: key);
+  const CollectionCard({Key? key, required this.index}) : super(key: key);
 
   @override
+  _CollectionCardState createState() => _CollectionCardState();
+}
+
+class _CollectionCardState extends State<CollectionCard> {
+  @override
   Widget build(BuildContext context) {
-    final categories = Provider.of<SingletonProvider>(context).categories;
+    final index = widget.index;
+    final collections = Provider.of<SingletonProvider>(context).collections;
     return Container(
       width: 100,
       height: 100,
@@ -40,7 +46,7 @@ class CompilationCard extends StatelessWidget {
                           top: Radius.circular(25),
                         ),
                         child: Image.network(
-                            categories.categories?[index].pictureUrl ?? '',
+                            collections.categories?[index].pictureUrl ?? '',
                             fit: BoxFit.cover),
                       ),
                     ),
@@ -57,8 +63,8 @@ class CompilationCard extends StatelessWidget {
                       ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          const Icon(
+                        children: const [
+                          Icon(
                             Icons.favorite,
                             color: CColors.dark_grey,
                             size: 20,
@@ -82,14 +88,14 @@ class CompilationCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Text(
-                      categories.categories![index].title,
+                      collections.categories![index].text,
                       overflow: TextOverflow.ellipsis,
                       maxLines: 2,
                       style: const TextStyle(
                           fontWeight: FontWeight.w500, fontSize: 15),
                     ),
                     Text(
-                      categories.categories![index].categoryId,
+                      collections.categories![index].categoryId,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       textAlign: TextAlign.left,
