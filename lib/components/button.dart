@@ -5,7 +5,7 @@ class MyButton extends StatelessWidget {
   final String text;
   final VoidCallback onTap;
 
-  const MyButton({Key? key, required this.text, required this.onTap})
+  const MyButton({Key key, @required this.text, @required this.onTap})
       : super(key: key);
 
   @override
@@ -16,13 +16,13 @@ class MyButton extends StatelessWidget {
             width: double.infinity,
             alignment: Alignment.center,
             decoration: BoxDecoration(
-                color: CColors.red,
+                color: CColors.dark_grey,
                 borderRadius: BorderRadius.circular(15)),
             child: Text(
               text,
-              style: TextStyle(
+              style: const TextStyle(
                   color: Colors.white,
-                  fontSize: 18,
+                  fontSize: 24,
                   fontWeight: FontWeight.bold),
             )),
       );

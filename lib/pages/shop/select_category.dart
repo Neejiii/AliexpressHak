@@ -8,7 +8,7 @@ import 'package:provider/provider.dart';
 import '../../http_client.dart';
 
 class SelectCategory extends StatefulWidget {
-  const SelectCategory({Key? key}) : super(key: key);
+  const SelectCategory({Key key}) : super(key: key);
 
   @override
   _SelectCategoryState createState() => _SelectCategoryState();
@@ -19,7 +19,7 @@ class _SelectCategoryState extends State<SelectCategory> {
 
   @override
   void initState() {
-    HttpClient().getCatalogs().then((CategoriesModel value) {
+    HttpClient().getCategories(context).then((CategoriesModel value) {
       isLoaded = true;
       Provider.of<SingletonProvider>(context, listen: false).categories = value;
       setState(() {});
@@ -46,13 +46,11 @@ class _SelectCategoryState extends State<SelectCategory> {
       ),
       body: isLoaded
           ? SafeArea(
-              child: ListView.builder(
-                itemCount: categories.categories!.length,
-                itemBuilder: (context, index) => SizedBox(
-                  width: double.infinity,
-                  child: InkWell(
+              child: Column(
+                children: [
+                  InkWell(
                     onTap: () {
-                      Navigator.pop(context, categories.categories![index].categoryId);
+                      Navigator.pop(context, '');
                     },
                     child: Column(
                       children: [
@@ -62,10 +60,9 @@ class _SelectCategoryState extends State<SelectCategory> {
                           padding: const EdgeInsets.symmetric(horizontal: 16),
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
+                            children: const [
                               Expanded(
-                                child:
-                                    Text(categories.categories![index].title),
+                                child: Text('Все товары'),
                               ),
                               const SizedBox(
                                 child: Icon(Icons.arrow_forward_ios_rounded),
@@ -77,7 +74,45 @@ class _SelectCategoryState extends State<SelectCategory> {
                       ],
                     ),
                   ),
-                ),
+                  Expanded(
+                    child: ListView.builder(
+                      itemCount: categories.categories.length,
+                      itemBuilder: (context, index) => SizedBox(
+                        width: double.infinity,
+                        child: InkWell(
+                          onTap: () {
+                            Navigator.pop(context,
+                                categories.categories[index].categoryId);
+                          },
+                          child: Column(
+                            children: [
+                              Container(
+                                alignment: Alignment.centerLeft,
+                                height: 50,
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 16),
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Expanded(
+                                      child: Text(
+                                          categories.categories[index].title),
+                                    ),
+                                    const SizedBox(
+                                      child:
+                                          Icon(Icons.arrow_forward_ios_rounded),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              const Divider()
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             )
           : const Center(child: CircularIndicator()),

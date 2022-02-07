@@ -8,7 +8,7 @@ import 'package:provider/provider.dart';
 import '../../http_client.dart';
 
 class FavoriteLoad extends StatefulWidget {
-  const FavoriteLoad({Key? key}) : super(key: key);
+  const FavoriteLoad({Key key}) : super(key: key);
 
   @override
   _FavoriteLoadState createState() => _FavoriteLoadState();

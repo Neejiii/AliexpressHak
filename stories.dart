@@ -2,7 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 class Stories extends StatefulWidget {
-  const Stories({Key? key}) : super(key: key);
+  const Stories({Key key}) : super(key: key);
 
   @override
   _StoriesState createState() => _StoriesState();
@@ -16,6 +16,7 @@ class _StoriesState extends State<Stories> {
     "Ellipse 9.png",
     "Ellipse 10.png",
   ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,34 +30,33 @@ class _StoriesState extends State<Stories> {
                 padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
                 child: CircleAvatar(
                   radius: 34,
-                backgroundColor: Colors.black87,
-                  child:
-                  CircleAvatar(
+                  backgroundColor: Colors.black87,
+                  child: CircleAvatar(
                     radius: 32,
                     backgroundColor: Colors.white,
-                        child: CircleAvatar(
-                          radius: 30,
-                          backgroundImage: AssetImage('assets/images/Ellipse 6.png'),
-                        ),
-                ),
+                    child: CircleAvatar(
+                      radius: 30,
+                      backgroundImage:
+                          AssetImage('assets/images/Ellipse 6.png'),
+                    ),
+                  ),
                 ),
               ),
-              for (int i=1; i< data.length; i++)
+              for (int i = 1; i < data.length; i++)
                 Padding(
                   padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
                   child: Container(
                     child: Expanded(
-                      child:
-                      CircleAvatar(
+                      child: CircleAvatar(
                         radius: 34,
                         backgroundColor: Colors.black87,
-                        child:
-                        CircleAvatar(
+                        child: CircleAvatar(
                           radius: 32,
                           backgroundColor: Colors.white,
                           child: CircleAvatar(
                             radius: 30,
-                            backgroundImage: AssetImage("assets/images/${data[i]}"),
+                            backgroundImage:
+                                AssetImage("assets/images/${data[i]}"),
                           ),
                         ),
                       ),

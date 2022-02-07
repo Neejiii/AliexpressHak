@@ -3,29 +3,34 @@ import 'package:mobile/components/theme.dart';
 
 class MyTextField extends StatelessWidget {
   final String text;
+  final TextEditingController controller;
 
-  const MyTextField({
-    Key? key,
-    this.text = "",
-  }) : super(key: key);
+ const  MyTextField({Key key, this.text = "", this.controller})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) => Container(
-      padding: const EdgeInsets.symmetric(vertical: 5),
+      padding: EdgeInsets.symmetric(vertical: 5),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         SizedBox(
           height: 58,
           width: double.infinity,
           child: TextField(
-            style: const TextStyle(color: Colors.grey),
+            controller: controller,
+            style: const TextStyle(color: CColors.dark_grey),
             decoration: InputDecoration(
-              filled: true,
-              fillColor: CColors.grey,
+              border: InputBorder.none,
+              focusColor: CColors.light_grey,
               labelText: text,
-              labelStyle: const TextStyle(color: Colors.grey),
+              fillColor: CColors.light_grey,
+              focusedBorder: OutlineInputBorder(
+                borderSide: const BorderSide(color: CColors.light_grey),
+                borderRadius: BorderRadius.circular(15),
+              ),
+              labelStyle: const TextStyle(color: CColors.dark_grey),
               enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide.none,
-                borderRadius: BorderRadius.circular(8),
+                borderSide: BorderSide(color: CColors.light_grey),
+                borderRadius: BorderRadius.circular(15),
               ),
             ),
           ),

@@ -1,23 +1,26 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile/components/circular_indicator.dart';
-import 'package:mobile/components/collection_card.dart';
 import 'package:mobile/components/theme.dart';
 import 'package:mobile/http_client.dart';
 import 'package:mobile/models/collections.dart';
+import 'package:mobile/models/products.dart';
 import 'package:mobile/models/singleton.dart';
+import 'package:mobile/pages/shop/products/product_card.dart';
 import 'package:mobile/pages/shop/select_category.dart';
 import 'package:provider/provider.dart';
 
+import 'collections/collection_card.dart';
+
 class ShopPage extends StatefulWidget {
-  const ShopPage({Key? key}) : super(key: key);
+  const ShopPage({Key key}) : super(key: key);
 
   @override
   _ShopPageState createState() => _ShopPageState();
 }
 
 class _ShopPageState extends State<ShopPage> with TickerProviderStateMixin {
-  late TabController _tabController;
+  TabController _tabController;
 
   @override
   void initState() {
@@ -60,7 +63,7 @@ class _ShopPageState extends State<ShopPage> with TickerProviderStateMixin {
                   controller: _tabController,
                   children: [
                     FutureBuilder<CollectionsModel>(
-                      future: HttpClient().getCollections(category),
+                      future: HttpClient().getCollections(context, category),
                       builder: (BuildContext context,
                           AsyncSnapshot<CollectionsModel> snapshot) {
                         if (snapshot.connectionState ==
@@ -70,7 +73,7 @@ class _ShopPageState extends State<ShopPage> with TickerProviderStateMixin {
                           );
                         } else if (snapshot.hasData) {
                           Provider.of<SingletonProvider>(context, listen: true)
-                              .collections = snapshot.data!;
+                              .collections = snapshot.data;
                           return Container(
                             color: CColors.bg,
                             padding: const EdgeInsets.only(
@@ -83,7 +86,7 @@ class _ShopPageState extends State<ShopPage> with TickerProviderStateMixin {
                                 mainAxisExtent: 262,
                                 crossAxisCount: 2,
                               ),
-                              itemCount: snapshot.data!.categories!.length,
+                              itemCount: snapshot.data.categories.length,
                               itemBuilder: (context, index) =>
                                   CollectionCard(index: index),
                             ),
@@ -95,14 +98,48 @@ class _ShopPageState extends State<ShopPage> with TickerProviderStateMixin {
                         }
                       },
                     ),
-                    Container(
-                        color: CColors.bg,
-                        padding:
-                            const EdgeInsets.only(top: 16, left: 16, right: 16),
-                        child: Text('asdsad')),
+                    FutureBuilder<ProductsModel>(
+                      future: HttpClient().getProducts(context, category),
+                      builder: (BuildContext context,
+                          AsyncSnapshot<ProductsModel> snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return const Center(
+                            child: CircularIndicator(),
+                          );
+                        } else if (snapshot.connectionState ==
+                                ConnectionState.done &&
+                            snapshot.hasData) {
+
+                          Provider.of<SingletonProvider>(context, listen: true)
+                              .products = snapshot.data;
+                          return Container(
+                            color: CColors.bg,
+                            padding: const EdgeInsets.only(
+                                top: 16, left: 16, right: 16),
+                            child: GridView.builder(
+                              gridDelegate:
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisSpacing: 10,
+                                mainAxisSpacing: 10,
+                                mainAxisExtent: 262,
+                                crossAxisCount: 2,
+                              ),
+                              itemCount: snapshot.data.categories.length,
+                              itemBuilder: (context, index) =>
+                                  ProductCard(index: index),
+                            ),
+                          );
+                        } else {
+                          return const Center(
+                            child: CircularIndicator(),
+                          );
+                        }
+                      },
+                    ),
                   ],
                 ),
-              )
+              ),
             ],
           ),
         ),

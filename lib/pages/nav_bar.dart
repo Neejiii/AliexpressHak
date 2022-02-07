@@ -8,7 +8,7 @@ import 'account/profile.dart';
 import 'cart/cart_load.dart';
 
 class Navbar extends StatefulWidget {
-  const Navbar({Key? key}) : super(key: key);
+  const Navbar({Key key}) : super(key: key);
 
   @override
   NavbarState createState() => NavbarState();

@@ -3,7 +3,7 @@ import 'package:mobile/components/circular_indicator.dart';
 import 'package:mobile/pages/cart/cart_page.dart';
 
 class CartLoad extends StatefulWidget {
-  const CartLoad({Key? key}) : super(key: key);
+  const CartLoad({Key key}) : super(key: key);
 
   @override
   _CartLoadState createState() => _CartLoadState();

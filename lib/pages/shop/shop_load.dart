@@ -8,7 +8,7 @@ import 'package:mobile/pages/shop/shop_page.dart';
 import 'package:provider/provider.dart';
 
 class ShopLoad extends StatefulWidget {
-  const ShopLoad({Key? key}) : super(key: key);
+  const ShopLoad({Key key}) : super(key: key);
 
   @override
   _ShopLoadState createState() => _ShopLoadState();
