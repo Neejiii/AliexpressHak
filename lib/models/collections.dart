@@ -1,13 +1,7 @@
-// To parse this JSON data, do
-//
-//     final collectionsModel = collectionsModelFromJson(jsonString);
-
 import 'package:meta/meta.dart';
 import 'dart:convert';
 
 CollectionsModel collectionsModelFromJson(String str) => CollectionsModel.fromJson(json.decode(str));
-
-String collectionsModelToJson(CollectionsModel data) => json.encode(data.toJson());
 
 class CollectionsModel {
   CollectionsModel({
@@ -20,9 +14,6 @@ class CollectionsModel {
     categories: json["categories"] == null ? null : List<Category>.from(json["categories"].map((x) => Category.fromJson(x))),
   );
 
-  Map<String, dynamic> toJson() => {
-    "categories": categories == null ? null : List<dynamic>.from(categories.map((x) => x.toJson())),
-  };
 }
 
 class Category {
@@ -49,15 +40,15 @@ class Category {
   bool isLiked;
 
   factory Category.fromJson(Map<String, dynamic> json) => Category(
-    productId: json["product_id"] == null ? null : json["product_id"],
-    price: json["price"] == null ? null : json["price"],
-    discount: json["discount"] == null ? null : json["discount"],
-    text: json["text"] == null ? null : json["text"],
-    title: json["title"] == null ? null : json["title"],
-    pictureUrl: json["picture_url"] == null ? null : json["picture_url"],
-    categoryId: json["category_id"] == null ? null : json["category_id"],
-    createdAt: json["created_at"] == null ? null : json["created_at"],
-    isLiked: json["is_liked"] == null ? null : json["is_liked"],
+    productId: json["product_id"] ?? '',
+    price: json["price"] ?? '',
+    discount: json["discount"] ?? '',
+    text: json["text"] ?? '',
+    title: json["title"] ?? '',
+    pictureUrl: json["picture_url"] ?? '',
+    categoryId: json["category_id"] ?? '',
+    createdAt: json["created_at"] ?? '',
+    isLiked: json["is_liked"] ?? false,
   );
 
 }
