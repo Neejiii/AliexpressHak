@@ -10,7 +10,7 @@ class MyTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Container(
-      padding: EdgeInsets.symmetric(vertical: 5),
+      padding: const EdgeInsets.symmetric(vertical: 5),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         SizedBox(
           height: 58,

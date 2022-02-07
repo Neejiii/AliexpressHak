@@ -21,6 +21,7 @@ class HttpClient {
     if (response.statusCode == 200) {
       Provider.of<SingletonProvider>(context, listen: false).token =
           response.data['token'];
+      print(response.data['token']);
       return response.data['token'];
     } else {
       throw ('getCatalogs STATUS CODE: ' + response.statusCode.toString());

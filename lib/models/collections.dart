@@ -1,47 +1,63 @@
+// To parse this JSON data, do
+//
+//     final collectionsModel = collectionsModelFromJson(jsonString);
+
+import 'package:meta/meta.dart';
 import 'dart:convert';
 
-CollectionsModel collectionsModelFromJson(String str) =>
-    CollectionsModel.fromJson(json.decode(str));
+CollectionsModel collectionsModelFromJson(String str) => CollectionsModel.fromJson(json.decode(str));
+
+String collectionsModelToJson(CollectionsModel data) => json.encode(data.toJson());
 
 class CollectionsModel {
   CollectionsModel({
-    this.categories,
+    @required this.categories,
   });
 
-  List<Collection> categories;
+  List<Category> categories;
 
-  factory CollectionsModel.fromJson(Map<String, dynamic> json) =>
-      CollectionsModel(
-        categories: json["categories"] == null
-            ? null
-            : List<Collection>.from(
-                json["categories"].map((x) => Collection.fromJson(x))),
-      );
+  factory CollectionsModel.fromJson(Map<String, dynamic> json) => CollectionsModel(
+    categories: json["categories"] == null ? null : List<Category>.from(json["categories"].map((x) => Category.fromJson(x))),
+  );
+
+  Map<String, dynamic> toJson() => {
+    "categories": categories == null ? null : List<dynamic>.from(categories.map((x) => x.toJson())),
+  };
 }
 
-class Collection {
-  Collection({
-    this.setId,
-    this.userId,
-    this.categoryId,
-    this.text,
-    this.pictureUrl,
-    this.createdAt,
+class Category {
+  Category({
+    @required this.productId,
+    @required this.price,
+    @required this.discount,
+    @required this.text,
+    @required this.title,
+    @required this.pictureUrl,
+    @required this.categoryId,
+    @required this.createdAt,
+    @required this.isLiked,
   });
 
-  String setId;
-  String userId;
-  String categoryId;
+  String productId;
+  String price;
+  String discount;
   String text;
+  String title;
   String pictureUrl;
+  String categoryId;
   String createdAt;
+  bool isLiked;
 
-  factory Collection.fromJson(Map<String, dynamic> json) => Collection(
-        setId: json["set_id"] ?? '',
-        userId: json["user_id"] ?? '',
-        categoryId: json["category_id"] ?? '',
-        text: json["text"] ?? '',
-        pictureUrl: json["picture_url"] ?? '',
-        createdAt: json["created_at"] ?? '',
-      );
+  factory Category.fromJson(Map<String, dynamic> json) => Category(
+    productId: json["product_id"] == null ? null : json["product_id"],
+    price: json["price"] == null ? null : json["price"],
+    discount: json["discount"] == null ? null : json["discount"],
+    text: json["text"] == null ? null : json["text"],
+    title: json["title"] == null ? null : json["title"],
+    pictureUrl: json["picture_url"] == null ? null : json["picture_url"],
+    categoryId: json["category_id"] == null ? null : json["category_id"],
+    createdAt: json["created_at"] == null ? null : json["created_at"],
+    isLiked: json["is_liked"] == null ? null : json["is_liked"],
+  );
+
 }

@@ -72,12 +72,18 @@ class _CollectionCardState extends State<CollectionCard> {
                         ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: const [
-                            Icon(
-                              Icons.favorite,
-                              color: CColors.dark_grey,
-                              size: 20,
-                            ),
+                          children: [
+                            collections.categories[index].isLiked
+                                ? const Icon(
+                                    Icons.favorite,
+                                    color: CColors.dark_grey,
+                                    size: 20,
+                                  )
+                                : const Icon(
+                                    Icons.favorite_border,
+                                    color: CColors.dark_grey,
+                                    size: 20,
+                                  ),
                             Text('12')
                           ],
                         ),

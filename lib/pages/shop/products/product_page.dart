@@ -40,34 +40,37 @@ class _ProductPageState extends State<ProductPage> {
               child: SingleChildScrollView(
                   child: Stack(children: [
                 Positioned(
-                    top: 0,
-                    left: 0,
-                    right: 0,
-                    child: SizedBox(
-                        height: MediaQuery.of(context).size.width,
-                        width: MediaQuery.of(context).size.width,
-                        child: PageView(
-                            onPageChanged: (index) {
-                              setState(() => _index = index);
-                            },
-                            children: [
-                              Hero(
-                                  tag: products.categories[widget.index].title,
-                                  child: Image.network(
-                                      products
-                                          .categories[widget.index].pictureUrl,
-                                      fit: BoxFit.fitWidth)),
-                              Image.asset("images/Media.png",
-                                  alignment: Alignment.topCenter),
-                              Image.asset("images/Media.png",
-                                  alignment: Alignment.topCenter)
-                            ]))),
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  child: SizedBox(
+                    height: MediaQuery.of(context).size.width,
+                    width: MediaQuery.of(context).size.width,
+                    child: PageView(
+                      onPageChanged: (index) {
+                        setState(() => _index = index);
+                      },
+                      children: [
+                        Hero(
+                            tag: products.categories[widget.index].title,
+                            child: Image.network(
+                                products.categories[widget.index].pictureUrl,
+                                fit: BoxFit.fitWidth)),
+                        Image.asset("images/Media.png",
+                            alignment: Alignment.topCenter),
+                        Image.asset("images/Media.png",
+                            alignment: Alignment.topCenter)
+                      ],
+                    ),
+                  ),
+                ),
                 SafeArea(
                     child: Column(children: [
                   Padding(
-                      padding: const EdgeInsets.only(
-                          top: 10, left: 10, right: 10, bottom: 184),
-                      child: Row(children: [
+                    padding: const EdgeInsets.only(
+                        top: 10, left: 10, right: 10, bottom: 184),
+                    child: Row(
+                      children: [
                         GestureDetector(
                             onTap: () => Navigator.of(context).pop(),
                             child: const Icon(Icons.arrow_back_ios,
@@ -76,10 +79,13 @@ class _ProductPageState extends State<ProductPage> {
                         GestureDetector(
                             onTap: () {},
                             child: SvgPicture.asset("images/favorite.svg"))
-                      ])),
+                      ],
+                    ),
+                  ),
                   Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [productDot(0), productDot(1), productDot(2)]),
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [productDot(0), productDot(1), productDot(2)],
+                  ),
                   const SizedBox(height: 15),
                   Container(
                       width: MediaQuery.of(context).size.width,
@@ -90,187 +96,159 @@ class _ProductPageState extends State<ProductPage> {
                           borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(20),
                               topRight: Radius.circular(20))),
-                      child: isLoading
-                          ? Container(
-                              height: 200,
-                              width: MediaQuery.of(context).size.width,
-                              alignment: Alignment.center,
-                              child: const CircularIndicator())
-                          : Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                  Text(products.categories[widget.index].title,
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(products.categories[widget.index].title,
+                                style: const TextStyle(
+                                    fontSize: 30, color: Color(0xff333333))),
+                            const SizedBox(height: 12.37),
+                            Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Text(products.categories[widget.index].price,
                                       style: const TextStyle(
-                                          fontSize: 30,
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 32,
                                           color: Color(0xff333333))),
-                                  const SizedBox(height: 12.37),
-                                  Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                            products
-                                                .categories[widget.index].price,
-                                            style: const TextStyle(
-                                                fontWeight: FontWeight.w500,
-                                                fontSize: 32,
-                                                color: Color(0xff333333))),
-                                        const SizedBox(width: 5),
-                                        const Text("₽ / кг",
-                                            style: TextStyle(
-                                                fontSize: 24,
-                                                color: Color(0xffAAAAAA)))
-                                      ]),
-                                  const SizedBox(height: 5.13),
-                                  const Text("Доступно: 500 кг",
+                                  const SizedBox(width: 5),
+                                  const Text("₽ / кг",
                                       style: TextStyle(
-                                          color: Color(0xff4DA64A),
-                                          fontSize: 17)),
-                                  const SizedBox(height: 28.94),
-                                  const Text("Тольятти",
-                                      style: TextStyle(
-                                          fontSize: 22,
-                                          color: Color(0xff333333))),
-                                  const SizedBox(height: 14.47),
-                                  const Text(
-                                      "Савойская капуста, как и белокочанная, образует большие кочаны, но листья у неё тонкие, гофрированные, кочан рыхлый, неплотный. Существуют и листовые сорта савойской капусты. В Россию она была завезена из Западной Европы в XVII веке. В России савойская капуста не получила широкого распространения из-за небольшого срока хранения, сравнительно низкой урожайности (по сравнению с белокочанной) и неиспользуемости в квашении. Савойская капуста по сравнению с белокочанной меньше повреждается заморозками.",
-                                      style: TextStyle(
-                                          fontSize: 17,
-                                          color: Color(0xffAAAAAA))),
-                                  const SizedBox(height: 49.51),
-                                  const Text("Похожие товары",
-                                      style: TextStyle(
-                                          fontSize: 22,
-                                          color: Color(0xff333333))),
-                                  const SizedBox(height: 15.78),
-                                  SizedBox(
-                                      height: 126,
-                                      child: ListView(
-                                          scrollDirection: Axis.horizontal,
-                                          children: [
-                                            Container(
-                                                padding:
-                                                    const EdgeInsets.all(10),
-                                                decoration: BoxDecoration(
-                                                    color: Colors.white,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            8)),
-                                                child: Row(children: [
-                                                  Image.asset(
-                                                    "images/Media (1).png",
-                                                    width: 145,
-                                                  ),
-                                                  const SizedBox(width: 12),
-                                                  Column(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceEvenly,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      children: [
-                                                        const Text(
-                                                          "Капуста Савойская",
-                                                          style: TextStyle(
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w500,
-                                                              fontSize: 18,
-                                                              color: Color(
-                                                                  0xff333333)),
-                                                        ),
-                                                        const SizedBox(
-                                                            height: 3.05),
-                                                        const Text(
-                                                          "Доступно: 100 кг",
-                                                          style: TextStyle(
-                                                              fontSize: 12,
-                                                              color: Color(
-                                                                  0xff4DA64A)),
-                                                        ),
-                                                        const SizedBox(
-                                                            height: 2.63),
-                                                        Row(children: const [
-                                                          Text("50",
-                                                              style: TextStyle(
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w500,
-                                                                  fontSize: 22,
-                                                                  color: Color(
-                                                                      0xff333333))),
-                                                          Text("₽ / кг",
-                                                              style: TextStyle(
-                                                                  fontSize: 18,
-                                                                  color: Color(
-                                                                      0xffAAAAAA)))
-                                                        ])
-                                                      ])
-                                                ])),
+                                          fontSize: 24,
+                                          color: Color(0xffAAAAAA)))
+                                ]),
+                            const SizedBox(height: 5.13),
+                            const Text("Доступно: 500 кг",
+                                style: TextStyle(
+                                    color: Color(0xff4DA64A), fontSize: 17)),
+                            const SizedBox(height: 28.94),
+                            const Text("Тольятти",
+                                style: TextStyle(
+                                    fontSize: 22, color: Color(0xff333333))),
+                            const SizedBox(height: 14.47),
+                            const Text(
+                                "Савойская капуста, как и белокочанная, образует большие кочаны, но листья у неё тонкие, гофрированные, кочан рыхлый, неплотный. Существуют и листовые сорта савойской капусты. В Россию она была завезена из Западной Европы в XVII веке. В России савойская капуста не получила широкого распространения из-за небольшого срока хранения, сравнительно низкой урожайности (по сравнению с белокочанной) и неиспользуемости в квашении. Савойская капуста по сравнению с белокочанной меньше повреждается заморозками.",
+                                style: TextStyle(
+                                    fontSize: 17, color: Color(0xffAAAAAA))),
+                            const SizedBox(height: 49.51),
+                            const Text("Похожие товары",
+                                style: TextStyle(
+                                    fontSize: 22, color: Color(0xff333333))),
+                            const SizedBox(height: 15.78),
+                            SizedBox(
+                                height: 126,
+                                child: ListView(
+                                    scrollDirection: Axis.horizontal,
+                                    children: [
+                                      Container(
+                                          padding: const EdgeInsets.all(10),
+                                          decoration: BoxDecoration(
+                                              color: Colors.white,
+                                              borderRadius:
+                                                  BorderRadius.circular(8)),
+                                          child: Row(children: [
+                                            Image.asset(
+                                              "images/Media (1).png",
+                                              width: 145,
+                                            ),
                                             const SizedBox(width: 12),
-                                            Container(
-                                                padding:
-                                                    const EdgeInsets.all(10),
-                                                decoration: BoxDecoration(
-                                                    color: Colors.white,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            8)),
-                                                child: Row(children: [
-                                                  Image.asset(
-                                                    "images/Media (2).png",
-                                                    width: 145,
+                                            Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceEvenly,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  const Text(
+                                                    "Капуста Савойская",
+                                                    style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                        fontSize: 18,
+                                                        color:
+                                                            Color(0xff333333)),
                                                   ),
-                                                  const SizedBox(width: 12),
-                                                  Column(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceEvenly,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      children: [
-                                                        const Text(
-                                                          "Капуста Савойская",
-                                                          style: TextStyle(
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w500,
-                                                              fontSize: 18,
-                                                              color: Color(
-                                                                  0xff333333)),
-                                                        ),
-                                                        const SizedBox(
-                                                            height: 3.05),
-                                                        const Text(
-                                                          "Доступно: 100 кг",
-                                                          style: TextStyle(
-                                                              fontSize: 12,
-                                                              color: Color(
-                                                                  0xff4DA64A)),
-                                                        ),
-                                                        const SizedBox(
-                                                            height: 2.63),
-                                                        Row(children: const [
-                                                          Text("50",
-                                                              style: TextStyle(
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w500,
-                                                                  fontSize: 22,
-                                                                  color: Color(
-                                                                      0xff333333))),
-                                                          Text("₽ / кг",
-                                                              style: TextStyle(
-                                                                  fontSize: 18,
-                                                                  color: Color(
-                                                                      0xffAAAAAA)))
-                                                        ])
-                                                      ])
-                                                ]))
+                                                  const SizedBox(height: 3.05),
+                                                  const Text(
+                                                    "Доступно: 100 кг",
+                                                    style: TextStyle(
+                                                        fontSize: 12,
+                                                        color:
+                                                            Color(0xff4DA64A)),
+                                                  ),
+                                                  const SizedBox(height: 2.63),
+                                                  Row(children: const [
+                                                    Text("50",
+                                                        style: TextStyle(
+                                                            fontWeight:
+                                                                FontWeight.w500,
+                                                            fontSize: 22,
+                                                            color: Color(
+                                                                0xff333333))),
+                                                    Text("₽ / кг",
+                                                        style: TextStyle(
+                                                            fontSize: 18,
+                                                            color: Color(
+                                                                0xffAAAAAA)))
+                                                  ])
+                                                ])
+                                          ])),
+                                      const SizedBox(width: 12),
+                                      Container(
+                                          padding: const EdgeInsets.all(10),
+                                          decoration: BoxDecoration(
+                                              color: Colors.white,
+                                              borderRadius:
+                                                  BorderRadius.circular(8)),
+                                          child: Row(children: [
+                                            Image.asset(
+                                              "images/Media (2).png",
+                                              width: 145,
+                                            ),
+                                            const SizedBox(width: 12),
+                                            Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceEvenly,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  const Text(
+                                                    "Капуста Савойская",
+                                                    style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                        fontSize: 18,
+                                                        color:
+                                                            Color(0xff333333)),
+                                                  ),
+                                                  const SizedBox(height: 3.05),
+                                                  const Text(
+                                                    "Доступно: 100 кг",
+                                                    style: TextStyle(
+                                                        fontSize: 12,
+                                                        color:
+                                                            Color(0xff4DA64A)),
+                                                  ),
+                                                  const SizedBox(height: 2.63),
+                                                  Row(children: const [
+                                                    Text("50",
+                                                        style: TextStyle(
+                                                            fontWeight:
+                                                                FontWeight.w500,
+                                                            fontSize: 22,
+                                                            color: Color(
+                                                                0xff333333))),
+                                                    Text("₽ / кг",
+                                                        style: TextStyle(
+                                                            fontSize: 18,
+                                                            color: Color(
+                                                                0xffAAAAAA)))
+                                                  ])
+                                                ])
                                           ]))
-                                ]))
+                                    ]))
+                          ]))
                 ]))
               ]))),
           AnimatedPositioned(
