@@ -1,54 +1,53 @@
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
-CollectionsModel collectionsModelFromJson(String str) => CollectionsModel.fromJson(json.decode(str));
+CollectionsModel collectionsModelFromJson(String str) =>
+    CollectionsModel.fromJson(json.decode(str));
 
 class CollectionsModel {
   CollectionsModel({
-    @required this.categories,
+    this.categories,
   });
 
   List<Category> categories;
 
-  factory CollectionsModel.fromJson(Map<String, dynamic> json) => CollectionsModel(
-    categories: json["categories"] == null ? null : List<Category>.from(json["categories"].map((x) => Category.fromJson(x))),
-  );
-
+  factory CollectionsModel.fromJson(Map<String, dynamic> json) =>
+      CollectionsModel(
+        categories: json["categories"] == null
+            ? null
+            : List<Category>.from(
+                json["categories"].map((x) => Category.fromJson(x))),
+      );
 }
 
 class Category {
   Category({
-    @required this.productId,
-    @required this.price,
-    @required this.discount,
-    @required this.text,
-    @required this.title,
-    @required this.pictureUrl,
-    @required this.categoryId,
-    @required this.createdAt,
-    @required this.isLiked,
+    this.setId,
+    this.userId,
+    this.categoryId,
+    this.text,
+    this.title,
+    this.pictureUrl,
+    this.createdAt,
+    this.isLiked,
   });
 
-  String productId;
-  String price;
-  String discount;
+  String setId;
+  String userId;
+  String categoryId;
   String text;
   String title;
   String pictureUrl;
-  String categoryId;
   String createdAt;
   bool isLiked;
 
   factory Category.fromJson(Map<String, dynamic> json) => Category(
-    productId: json["product_id"] ?? '',
-    price: json["price"] ?? '',
-    discount: json["discount"] ?? '',
-    text: json["text"] ?? '',
-    title: json["title"] ?? '',
-    pictureUrl: json["picture_url"] ?? '',
-    categoryId: json["category_id"] ?? '',
-    createdAt: json["created_at"] ?? '',
-    isLiked: json["is_liked"] ?? false,
-  );
-
+        setId: json["set_id"] ?? null,
+        userId: json["user_id"] ?? null,
+        categoryId: json["category_id"] ?? null,
+        text: json["text"] ?? null,
+        title: json["title"] ?? null,
+        pictureUrl: json["picture_url"] ?? null,
+        createdAt: json["created_at"] ?? null,
+        isLiked: json["is_liked"] ?? null,
+      );
 }

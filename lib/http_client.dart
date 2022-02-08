@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 
 import 'models/categories.dart';
 import 'models/collections.dart';
+import 'models/favorites.dart';
 import 'models/products.dart';
 
 class HttpClient {
@@ -80,13 +81,45 @@ class HttpClient {
     }
   }
 
+  Future<FavoritesModel> getFavorite(context) async {
+    var token = Provider.of<SingletonProvider>(context, listen: false).token;
+    Response response = await dio.get(
+      url + '/v1/api/dau/favorites',
+      options: Options(
+          responseType: ResponseType.plain,
+          headers: {'Authorization': 'Bearer $token'}),
+    );
+    if (response.statusCode == 200) {
+      return favoritesModelFromJson(response.data);
+    } else {
+      throw ('getProducts STATUS CODE: ' + response.statusCode.toString());
+    }
+  }
+
   Future<ProductModel> getProduct(String id) async {
     final response = await http.get(Uri.http(url, "/v1/api/dau/products/$id"));
     print(utf8.decode(response.bodyBytes));
     if (response.statusCode == 200) {
       return productModelFromJson(utf8.decode(response.bodyBytes));
     } else {
-      throw ('getProducts STATUS CODE: ' + response.statusCode.toString());
+      throw ('getProduct STATUS CODE: ' + response.statusCode.toString());
+    }
+  }
+
+  Future<int> favorite(context, String productId) async {
+    var token = Provider.of<SingletonProvider>(context, listen: false).token;
+    final response = await dio.post(
+      url + "/v1/api/dau/favorites",
+      data: {'id': productId, 'like_type': 'product'},
+      options: Options(
+          responseType: ResponseType.plain,
+          headers: {'Authorization': 'Bearer $token'}),
+    );
+    print(response);
+    if (response.statusCode == 200) {
+      return response.statusCode;
+    } else {
+      throw ('favorite STATUS CODE: ' + response.statusCode.toString());
     }
   }
 }

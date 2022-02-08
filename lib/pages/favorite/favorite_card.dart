@@ -2,28 +2,29 @@ import 'package:flutter/material.dart';
 import 'package:mobile/components/theme.dart';
 import 'package:mobile/http_client.dart';
 import 'package:mobile/models/singleton.dart';
-import 'package:mobile/pages/shop/products/product_page.dart';
+import 'package:mobile/pages/shop/collections/collection_page.dart';
 import 'package:provider/provider.dart';
 
-class ProductCard extends StatefulWidget {
+class FavoriteCard extends StatefulWidget {
   final int index;
 
-  const ProductCard({Key key, this.index}) : super(key: key);
+  const FavoriteCard({Key key, this.index}) : super(key: key);
 
   @override
-  _ProductCardState createState() => _ProductCardState();
+  _FavoriteCardState createState() => _FavoriteCardState();
 }
 
-class _ProductCardState extends State<ProductCard> {
+class _FavoriteCardState extends State<FavoriteCard> {
   @override
   Widget build(BuildContext context) {
     final index = widget.index;
-    final collections = Provider.of<SingletonProvider>(context).products;
+    final favorites = Provider.of<SingletonProvider>(context).favorites;
+
     return GestureDetector(
       onTap: () {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => ProductPage(index: index)),
+          MaterialPageRoute(builder: (context) => CollectionPage()),
         );
       },
       child: Container(
@@ -58,7 +59,7 @@ class _ProductCardState extends State<ProductCard> {
                             decoration: BoxDecoration(
                               image: DecorationImage(
                                 image: NetworkImage(
-                                    collections.categories[index].pictureUrl),
+                                    favorites.favorites[index].pictureUrl),
                                 fit: BoxFit.fill,
                               ),
                             ),
@@ -78,20 +79,19 @@ class _ProductCardState extends State<ProductCard> {
                         ),
                         child: GestureDetector(
                           onTap: () {
-                            // HttpClient()
-                            //     .favorite(context,
-                            //     collections.categories[index].productId)
-                            //     .then((value) => () {
-                            //   collections.categories[index].isLiked =
-                            //   !collections
-                            //       .categories[index].isLiked;
-                            //   setState(() {});
-                            // });
+                            HttpClient()
+                                .favorite(context,
+                                favorites.favorites[index].setId)
+                                .then((value) => () {
+                              favorites.favorites[index].isLiked =
+                              !favorites.favorites[index].isLiked;
+                              setState(() {});
+                            });
                           },
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              collections.categories[index].isLiked
+                              favorites.favorites[index].isLiked
                                   ? const Icon(
                                 Icons.favorite,
                                 color: CColors.dark_grey,
@@ -122,14 +122,14 @@ class _ProductCardState extends State<ProductCard> {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       Text(
-                        collections.categories[index].title,
+                        favorites.favorites[index].title,
                         overflow: TextOverflow.ellipsis,
                         maxLines: 2,
                         style: const TextStyle(
                             fontWeight: FontWeight.w500, fontSize: 15),
                       ),
                       Text(
-                        collections.categories[index].text,
+                        favorites.favorites[index].text,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         textAlign: TextAlign.left,

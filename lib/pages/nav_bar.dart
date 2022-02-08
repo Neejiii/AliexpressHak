@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mobile/components/theme.dart';
+import 'package:mobile/pages/favorite/favorite_load.dart';
+import 'package:mobile/pages/shop/create_collection/create_collection_page.dart';
 import 'package:mobile/pages/shop/shop_load.dart';
 
 import 'account/profile.dart';
@@ -47,7 +49,7 @@ class NavbarState extends State<Navbar> {
         children: const [
           ShopLoad(),
           CartLoad(),
-          ShopLoad(),
+          FavoriteLoad(),
           ProfilePage(),
         ],
         index: _seletedItem,
@@ -56,16 +58,26 @@ class NavbarState extends State<Navbar> {
   }
 
   Widget circleAdd() {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(25),
-      child: Container(
-        width: 40,
-        height: 40,
-        color: CColors.dark_grey,
-        child: const Icon(
-          Icons.add_rounded,
-          color: CColors.white,
-          size: 30,
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const CreateCollectionPage(),
+          ),
+        ).then((value) => setState(() {}));
+      },
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(25),
+        child: Container(
+          width: 40,
+          height: 40,
+          color: CColors.dark_grey,
+          child: const Icon(
+            Icons.add_rounded,
+            color: CColors.white,
+            size: 30,
+          ),
         ),
       ),
     );

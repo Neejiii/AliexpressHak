@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/components/theme.dart';
+import 'package:mobile/http_client.dart';
 import 'package:mobile/models/singleton.dart';
 import 'package:mobile/pages/shop/collections/collection_page.dart';
 import 'package:provider/provider.dart';
@@ -54,9 +55,15 @@ class _CollectionCardState extends State<CollectionCard> {
                           borderRadius: const BorderRadius.vertical(
                             top: Radius.circular(25),
                           ),
-                          child: Image.network(
-                              collections.categories[index].pictureUrl,
-                              fit: BoxFit.cover),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: NetworkImage(
+                                    collections.categories[index].pictureUrl),
+                                fit: BoxFit.fill,
+                              ),
+                            ),
+                          ),
                         ),
                       ),
                     ),
@@ -70,22 +77,35 @@ class _CollectionCardState extends State<CollectionCard> {
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(20),
                         ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            collections.categories[index].isLiked
-                                ? const Icon(
-                                    Icons.favorite,
-                                    color: CColors.dark_grey,
-                                    size: 20,
-                                  )
-                                : const Icon(
-                                    Icons.favorite_border,
-                                    color: CColors.dark_grey,
-                                    size: 20,
-                                  ),
-                            Text('12')
-                          ],
+                        child: GestureDetector(
+                          onTap: () {
+                            HttpClient()
+                                .favorite(context,
+                                    collections.categories[index].setId)
+                                .then((value) => () {
+                                      collections.categories[index].isLiked =
+                                          !collections
+                                              .categories[index].isLiked;
+                                      setState(() {});
+                                    });
+                          },
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              collections.categories[index].isLiked
+                                  ? const Icon(
+                                      Icons.favorite,
+                                      color: CColors.dark_grey,
+                                      size: 20,
+                                    )
+                                  : const Icon(
+                                      Icons.favorite_border,
+                                      color: CColors.dark_grey,
+                                      size: 20,
+                                    ),
+                              Text('12'),
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -103,14 +123,14 @@ class _CollectionCardState extends State<CollectionCard> {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       Text(
-                        collections.categories[index].text ?? '',
+                        collections.categories[index].title,
                         overflow: TextOverflow.ellipsis,
                         maxLines: 2,
                         style: const TextStyle(
                             fontWeight: FontWeight.w500, fontSize: 15),
                       ),
                       Text(
-                        collections.categories[index].categoryId,
+                        collections.categories[index].text,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         textAlign: TextAlign.left,

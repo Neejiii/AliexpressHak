@@ -23,27 +23,33 @@ class Product {
     this.productId,
     this.price,
     this.discount,
+    this.text,
     this.title,
     this.pictureUrl,
     this.categoryId,
     this.createdAt,
+    this.isLiked,
   });
 
   String productId;
   String price;
   String discount;
+  String text;
   String title;
   String pictureUrl;
   String categoryId;
   String createdAt;
+  bool isLiked;
 
   factory Product.fromJson(Map<String, dynamic> json) => Product(
         productId: json["product_id"] ?? '',
         price: json["price"] ?? '',
         discount: json["discount"] ?? '',
+        text: json["text"] ?? '',
         title: json["title"] ?? '',
-        pictureUrl: json["picture_url"] ?? '',
+        pictureUrl: json["picture_url"] ?? 'https://yandex.ru/images/search?pos=0&from=tabbar&img_url=https%3A%2F%2Fpbs.twimg.com%2Fmedia%2FEkOMb1mX0AIrU7E.jpg&text=white&rpt=simage',
         categoryId: json["category_id"] ?? '',
         createdAt: json["created_at"] ?? '',
+        isLiked: json["is_liked"] ?? false,
       );
 }

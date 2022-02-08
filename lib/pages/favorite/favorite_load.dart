@@ -18,6 +18,18 @@ class _FavoriteLoadState extends State<FavoriteLoad> {
   bool isLoaded = false;
 
   @override
+  void initState() {
+    HttpClient().getFavorite(context).then((value) => () {
+      print(32123);
+          Provider.of<SingletonProvider>(context, listen: false).favorites =
+              value;
+          isLoaded = true;
+          setState(() {});
+        });
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: isLoaded
