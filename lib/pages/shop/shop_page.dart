@@ -9,6 +9,7 @@ import 'package:mobile/models/singleton.dart';
 import 'package:mobile/pages/shop/products/product_card.dart';
 import 'package:mobile/pages/shop/select_category.dart';
 import 'package:provider/provider.dart';
+import 'package:mobile/components/stories.dart';
 
 import 'collections/collection_card.dart';
 
@@ -57,6 +58,10 @@ class _ShopPageState extends State<ShopPage> with TickerProviderStateMixin {
                     ),
                   ],
                 ),
+              ),
+              SizedBox(
+                height: 110,
+                child: Stories(),
               ),
               Expanded(
                 child: TabBarView(
