@@ -24,7 +24,7 @@ class AuthPage extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text('Singer',
+                const Text('Stinger',
                     textAlign: TextAlign.center,
                     style:
                         TextStyle(fontSize: 48, fontWeight: FontWeight.bold)),
