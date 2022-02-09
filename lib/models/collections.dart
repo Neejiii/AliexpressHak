@@ -20,16 +20,16 @@ class CollectionsModel {
 }
 
 class Category {
-  Category({
-    this.setId,
-    this.userId,
-    this.categoryId,
-    this.text,
-    this.title,
-    this.pictureUrl,
-    this.createdAt,
-    this.isLiked,
-  });
+  Category(
+      {this.setId,
+      this.userId,
+      this.categoryId,
+      this.text,
+      this.title,
+      this.pictureUrl,
+      this.createdAt,
+      this.isLiked,
+      this.likeCount});
 
   String setId;
   String userId;
@@ -38,16 +38,18 @@ class Category {
   String title;
   String pictureUrl;
   String createdAt;
+  int likeCount;
   bool isLiked;
 
   factory Category.fromJson(Map<String, dynamic> json) => Category(
-        setId: json["set_id"] ?? null,
-        userId: json["user_id"] ?? null,
-        categoryId: json["category_id"] ?? null,
-        text: json["text"] ?? null,
-        title: json["title"] ?? null,
-        pictureUrl: json["picture_url"] ?? null,
-        createdAt: json["created_at"] ?? null,
-        isLiked: json["is_liked"] ?? null,
+        setId: json["set_id"] ?? '',
+        userId: json["user_id"] ?? '',
+        categoryId: json["category_id"] ?? '',
+        text: json["text"] ?? '',
+        title: json["title"] ?? '',
+        pictureUrl: json["picture_url"] ?? '',
+        createdAt: json["created_at"] ?? '',
+        likeCount: json["like_count"] ?? 0,
+        isLiked: json["is_liked"] ?? false,
       );
 }

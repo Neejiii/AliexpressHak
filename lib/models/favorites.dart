@@ -10,12 +10,11 @@ class FavoritesModel {
 
   List<Category> favorites;
 
-  factory FavoritesModel.fromJson(Map<String, dynamic> json) =>
-      FavoritesModel(
+  factory FavoritesModel.fromJson(Map<String, dynamic> json) => FavoritesModel(
         favorites: json["favorites"] == null
             ? null
             : List<Category>.from(
-            json["favorites"].map((x) => Category.fromJson(x))),
+                json["favorites"].map((x) => Category.fromJson(x))),
       );
 }
 
@@ -41,13 +40,13 @@ class Category {
   bool isLiked;
 
   factory Category.fromJson(Map<String, dynamic> json) => Category(
-    setId: json["set_id"] ?? '',
-    userId: json["user_id"] ?? '',
-    categoryId: json["category_id"] ?? '',
-    text: json["text"] ?? '',
-    title: json["title"] ?? '',
-    pictureUrl: json["picture_url"] ?? '',
-    createdAt: json["created_at"] ?? '',
-    isLiked: json["is_liked"] ?? false,
-  );
+        setId: json["set_id"] ?? '',
+        userId: json["user_id"] ?? '',
+        categoryId: json["category_id"] ?? '',
+        text: json["text"] ?? '',
+        title: json["title"] ?? '',
+        pictureUrl: json["picture_url"] ?? '',
+        createdAt: json["created_at"] ?? '',
+        isLiked: json["is_liked"] ?? false,
+      );
 }

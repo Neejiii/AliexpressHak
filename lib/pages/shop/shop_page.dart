@@ -59,10 +59,6 @@ class _ShopPageState extends State<ShopPage> with TickerProviderStateMixin {
                   ],
                 ),
               ),
-              const SizedBox(
-                height: 110,
-                child: Stories(),
-              ),
               Expanded(
                 child: TabBarView(
                   controller: _tabController,
@@ -79,23 +75,30 @@ class _ShopPageState extends State<ShopPage> with TickerProviderStateMixin {
                         } else if (snapshot.hasData) {
                           Provider.of<SingletonProvider>(context, listen: true)
                               .collections = snapshot.data;
-                          return Container(
-                            color: CColors.bg,
-                            padding: const EdgeInsets.only(
-                                top: 16, left: 16, right: 16),
-                            child: GridView.builder(
-                              gridDelegate:
-                                  const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisSpacing: 10,
-                                mainAxisSpacing: 10,
-                                mainAxisExtent: 262,
-                                crossAxisCount: 2,
+                          return Column(children: [
+                            const Stories(),
+                            Expanded(
+                              child: Container(
+                                color: CColors.bg,
+                                margin: const EdgeInsets.only(
+                                    top: 16, left: 16, right: 16),
+                                child: GridView.builder(
+                                  gridDelegate:
+                                      const SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisSpacing: 10,
+                                    mainAxisSpacing: 10,
+                                    mainAxisExtent: 262,
+                                    crossAxisCount: 2,
+                                  ),
+                                  itemCount: snapshot.data.categories.length,
+                                  itemBuilder: (context, index) =>
+                                      CollectionCard(
+                                          collection:
+                                              snapshot.data.categories[index]),
+                                ),
                               ),
-                              itemCount: snapshot.data.categories.length,
-                              itemBuilder: (context, index) =>
-                                  CollectionCard(collection: snapshot.data.categories[index]),
                             ),
-                          );
+                          ]);
                         } else {
                           return const Center(
                             child: CircularIndicator(),
@@ -115,12 +118,11 @@ class _ShopPageState extends State<ShopPage> with TickerProviderStateMixin {
                         } else if (snapshot.connectionState ==
                                 ConnectionState.done &&
                             snapshot.hasData) {
-
                           Provider.of<SingletonProvider>(context, listen: true)
                               .products = snapshot.data;
                           return Container(
                             color: CColors.bg,
-                            padding: const EdgeInsets.only(
+                            margin: const EdgeInsets.only(
                                 top: 16, left: 16, right: 16),
                             child: GridView.builder(
                               gridDelegate:

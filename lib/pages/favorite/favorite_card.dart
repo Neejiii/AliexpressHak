@@ -36,10 +36,10 @@ class _FavoriteCardState extends State<FavoriteCard> {
           color: Colors.white,
           boxShadow: const [
             BoxShadow(
-                color: CColors.grey,
-                offset: Offset(0, 1),
-                blurRadius: 1,
-                blurStyle: BlurStyle.inner),
+              color: CColors.light_grey,
+              offset: Offset(0, 3),
+              blurRadius: 2,
+            ),
           ],
         ),
         child: Column(

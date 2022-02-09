@@ -80,6 +80,7 @@ class _CollectionCardState extends State<CollectionCard> {
                                 .favorite(context, collection.setId)
                                 .then((value) => () {});
                             collection.isLiked = !collection.isLiked;
+                            collection.likeCount = collection.likeCount + 1;
                             setState(() {});
                           },
                           child: Row(
@@ -96,7 +97,7 @@ class _CollectionCardState extends State<CollectionCard> {
                                       color: CColors.dark_grey,
                                       size: 20,
                                     ),
-                              Text('12'),
+                              Text(collection.likeCount.toString()),
                             ],
                           ),
                         ),

@@ -34,16 +34,9 @@ class Category {
   String parentId;
 
   factory Category.fromJson(Map<String, dynamic> json) => Category(
-        categoryId: json["category_id"] == null ? null : json["category_id"],
-        title: json["title"] == null ? null : json["title"],
-        pictureUrl: json["picture_url"] == null ? null : json["picture_url"],
-        parentId: json["parent_id"] == null ? null : json["parent_id"],
+        categoryId: json["category_id"] ?? '',
+        title: json["title"] ?? '',
+        pictureUrl: json["picture_url"] ?? '',
+        parentId: json["parent_id"] ?? '',
       );
-
-  Map<String, dynamic> toJson() => {
-        "category_id": categoryId == null ? null : categoryId,
-        "title": title == null ? null : title,
-        "picture_url": pictureUrl == null ? null : pictureUrl,
-        "parent_id": parentId == null ? null : parentId,
-      };
 }

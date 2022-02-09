@@ -28,6 +28,7 @@ class Product {
     this.pictureUrl,
     this.categoryId,
     this.createdAt,
+    this.likeCount,
     this.isLiked,
   });
 
@@ -39,6 +40,7 @@ class Product {
   String pictureUrl;
   String categoryId;
   String createdAt;
+  int likeCount;
   bool isLiked;
 
   factory Product.fromJson(Map<String, dynamic> json) => Product(
@@ -47,9 +49,11 @@ class Product {
         discount: json["discount"] ?? '',
         text: json["text"] ?? '',
         title: json["title"] ?? '',
-        pictureUrl: json["picture_url"] ?? 'https://yandex.ru/images/search?pos=0&from=tabbar&img_url=https%3A%2F%2Fpbs.twimg.com%2Fmedia%2FEkOMb1mX0AIrU7E.jpg&text=white&rpt=simage',
+        pictureUrl: json["picture_url"] ??
+            'https://yandex.ru/images/search?pos=0&from=tabbar&img_url=https%3A%2F%2Fpbs.twimg.com%2Fmedia%2FEkOMb1mX0AIrU7E.jpg&text=white&rpt=simage',
         categoryId: json["category_id"] ?? '',
         createdAt: json["created_at"] ?? '',
+        likeCount: json["like_count"] ?? 0,
         isLiked: json["is_liked"] ?? false,
       );
 }
