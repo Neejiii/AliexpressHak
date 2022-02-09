@@ -59,7 +59,7 @@ class _ShopPageState extends State<ShopPage> with TickerProviderStateMixin {
                   ],
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 110,
                 child: Stories(),
               ),
@@ -93,7 +93,7 @@ class _ShopPageState extends State<ShopPage> with TickerProviderStateMixin {
                               ),
                               itemCount: snapshot.data.categories.length,
                               itemBuilder: (context, index) =>
-                                  CollectionCard(index: index),
+                                  CollectionCard(collection: snapshot.data.categories[index]),
                             ),
                           );
                         } else {

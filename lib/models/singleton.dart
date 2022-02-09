@@ -13,4 +13,8 @@ class SingletonProvider with ChangeNotifier {
   FavoritesModel favorites;
 
   String token;
+
+  void updateProvider() {
+    notifyListeners();
+  }
 }

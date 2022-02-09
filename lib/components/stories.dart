@@ -46,18 +46,16 @@ class _StoriesState extends State<Stories> {
                 Padding(
                   padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
                   child: Container(
-                    child: Expanded(
+                    child: CircleAvatar(
+                      radius: 34,
+                      backgroundColor: Colors.black87,
                       child: CircleAvatar(
-                        radius: 34,
-                        backgroundColor: Colors.black87,
+                        radius: 32,
+                        backgroundColor: Colors.white,
                         child: CircleAvatar(
-                          radius: 32,
-                          backgroundColor: Colors.white,
-                          child: CircleAvatar(
-                            radius: 30,
-                            backgroundImage:
-                                AssetImage("assets/images/${data[i]}"),
-                          ),
+                          radius: 30,
+                          backgroundImage:
+                              AssetImage("assets/images/${data[i]}"),
                         ),
                       ),
                     ),

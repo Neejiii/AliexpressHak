@@ -5,10 +5,12 @@ import 'package:mobile/models/singleton.dart';
 import 'package:mobile/pages/shop/collections/collection_page.dart';
 import 'package:provider/provider.dart';
 
-class FavoriteCard extends StatefulWidget {
-  final int index;
+import '../../models/favorites.dart';
 
-  const FavoriteCard({Key key, this.index}) : super(key: key);
+class FavoriteCard extends StatefulWidget {
+  final Category favorite;
+
+  const FavoriteCard({Key key, this.favorite}) : super(key: key);
 
   @override
   _FavoriteCardState createState() => _FavoriteCardState();
@@ -17,8 +19,7 @@ class FavoriteCard extends StatefulWidget {
 class _FavoriteCardState extends State<FavoriteCard> {
   @override
   Widget build(BuildContext context) {
-    final index = widget.index;
-    final favorites = Provider.of<SingletonProvider>(context).favorites;
+    final favorite = widget.favorite;
 
     return GestureDetector(
       onTap: () {
@@ -58,8 +59,7 @@ class _FavoriteCardState extends State<FavoriteCard> {
                           child: Container(
                             decoration: BoxDecoration(
                               image: DecorationImage(
-                                image: NetworkImage(
-                                    favorites.favorites[index].pictureUrl),
+                                image: NetworkImage(favorite.pictureUrl),
                                 fit: BoxFit.fill,
                               ),
                             ),
@@ -80,29 +80,29 @@ class _FavoriteCardState extends State<FavoriteCard> {
                         child: GestureDetector(
                           onTap: () {
                             HttpClient()
-                                .favorite(context,
-                                favorites.favorites[index].setId)
+                                .favorite(context, favorite.setId)
                                 .then((value) => () {
-                              favorites.favorites[index].isLiked =
-                              !favorites.favorites[index].isLiked;
-                              setState(() {});
-                            });
+                                      favorite.isLiked = !favorite.isLiked;
+                                      Provider.of<SingletonProvider>(context,
+                                              listen: true)
+                                          .updateProvider();
+                                      setState(() {});
+                                    });
                           },
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              favorites.favorites[index].isLiked
+                              favorite.isLiked
                                   ? const Icon(
-                                Icons.favorite,
-                                color: CColors.dark_grey,
-                                size: 20,
-                              )
+                                      Icons.favorite,
+                                      color: CColors.dark_grey,
+                                      size: 20,
+                                    )
                                   : const Icon(
-                                Icons.favorite_border,
-                                color: CColors.dark_grey,
-                                size: 20,
-                              ),
-                              Text('12'),
+                                      Icons.favorite_border,
+                                      color: CColors.dark_grey,
+                                      size: 20,
+                                    ),
                             ],
                           ),
                         ),
@@ -122,14 +122,14 @@ class _FavoriteCardState extends State<FavoriteCard> {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       Text(
-                        favorites.favorites[index].title,
+                        favorite.title,
                         overflow: TextOverflow.ellipsis,
                         maxLines: 2,
                         style: const TextStyle(
                             fontWeight: FontWeight.w500, fontSize: 15),
                       ),
                       Text(
-                        favorites.favorites[index].text,
+                        favorite.text,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         textAlign: TextAlign.left,

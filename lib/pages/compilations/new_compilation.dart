@@ -1,11 +1,13 @@
 import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:mobile/components/secondary_button.dart';
 import 'package:open_file/open_file.dart';
 import 'package:image_picker/image_picker.dart';
+
+import '../../components/theme.dart';
 
 class NewCompilation extends StatefulWidget {
   const NewCompilation({Key key}) : super(key: key);
@@ -15,274 +17,119 @@ class NewCompilation extends StatefulWidget {
 }
 
 class _NewCompilationState extends State<NewCompilation> {
-
-  PickedFile _imageFile;
+  XFile _imageFile;
   final ImagePicker _picker = ImagePicker();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
-          scrollDirection: Axis.vertical,
-          child: Column(
-          children: <Widget>[
-            SizedBox(
-              height: 60,
-              width: 414,
-              child: Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 0, 3, 0),
-                    child: IconButton(onPressed: (){}, icon: Icon(Icons.arrow_back),
-                    ),
-                  ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(32, 0, 0, 0),
-                  child: Text('Создание подборки', style: TextStyle(
-                    fontSize: 24,
-                    fontFamily: 'Montserrat',
-                  ),),
-                )
-                ],
-              ),
-            ),
-            SizedBox(
-              height: 380,
-              width: 500,
-              child: Stack (
-                // alignment: Alignment.centerLeft,
-                children: <Widget>[
-                  imageLoad(),
-                  Positioned(
-                    top: 50,
-                    right: 160,
-                    child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      border: Border.all(
-                        color: Colors.white,
-                        width: 2,
-                      ),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: SizedBox(
-                      height: 100,
-                      width: 178,
-                      child: Column(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(0, 15, 0, 0),
-                            child: Text('Добавить товар из:',
-                            style: TextStyle(
-                              fontSize: 12,
-                              fontFamily: 'Montserrat'
-                            ),),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(30, 0, 0, 5),
-                            child: Row(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.fromLTRB(0, 3, 4, 5),
-                                  child: Container(child: IconButton(onPressed: (){},
-                                    icon: SvgPicture.asset('assets/icons/dark_heart.svg'),
-
-                                  ),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    border: Border.all(
-                                      color: Colors.black26,
-                                      width: 2,
-                                    ),
-                                  ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.fromLTRB(4, 3, 0, 5),
-                                  child: Container(child: IconButton(onPressed: (){}, icon: SvgPicture.asset('assets/icons/dark_cart.svg'),),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
-                                      border: Border.all(
-                                        color: Colors.black26,
-                                        width: 2,
-                                      ),
-                                    ),),
-                                ),
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                  ),
-                  Positioned(
-                    top: 300,
-                    left: 20,
-                    child: Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          width: 175,
-                          height: 45,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(12),
-                              border: Border.all(
-                                width: 1.5,
-                                color: Colors.black26,
-                              )
-                          ),
-                          child: TextButton(onPressed: () {
-                            takePhoto(ImageSource.camera);
-                          }, child: Text('Сделать фото', style: TextStyle(
-                            fontFamily: 'Montserrat',
-                            fontSize: 13,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black87,
-                          ),),),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          width: 175,
-                          height: 45,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(12),
-                            border: Border.all(
-                              width: 1.5,
-                              color: Colors.black26,
-                            )
-                          ),
-                          child: TextButton(onPressed: () async {
-                            takePhoto(ImageSource.gallery);
-                          }, child: Text('Загрузить', style: TextStyle(
-                            fontSize: 13,
-                            fontFamily: 'Montserrat',
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black87,
-                          ),),),
-                        ),
-                      ),
-
-                    ],
-                  ),),
-                ],
-
-              ),
-
-            ),
-            // Positioned(
-            //   child:
-              SizedBox(
-                height: 400,
-                width: 400,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child:  Expanded(child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(27, 8, 0, 5),
-                        child: Text("Название*", style: TextStyle(
-                          fontSize: 18,
-                          fontFamily: 'Montserrat',
-                          fontWeight: FontWeight.bold
-                        ),),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(27, 8, 20, 5),
-                        child: TextField(decoration: InputDecoration(
-                          hintText: 'Укажите название подборки'
-                        ),),
-                      ),
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(27, 8, 0, 5),
-                          child: Text("Категории*", style: TextStyle(
-                              fontSize: 18,
-                              fontFamily: 'Montserrat',
-                              fontWeight: FontWeight.bold
-                          ),),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(27, 8, 20, 5),
-                          child: TextField(decoration: InputDecoration(
-                              hintText: 'Укажите категории товаров'
-                          ),),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(27, 8, 0, 5),
-                          child: Text("Дополнительные товары", style: TextStyle(
-                              fontSize: 18,
-                              fontFamily: 'Montserrat',
-                              fontWeight: FontWeight.bold
-                          ),
-                          ),
-                        ),
-                        //ошибка из за SingleChildScrollView, хз как фиксить пока что
-
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(27, 8, 0, 5),
-                          child: Container(
-                            width: 300,
-                            height: 45,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(12),
-                                border: Border.all(
-                                  width: 1.5,
-                                  color: Colors.black26,
-                                )
-                            ),
-                            child: TextButton(onPressed: (){}, child: Text('Добавить из избранного', style: TextStyle(
-                              fontSize: 13,
-                              fontFamily: 'Montserrat',
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black87,
-                            ),),),
-                          ),
-                        ),
-                    ],
-                    ),
-                  ),
-                  ),
-                ),
-          ],
-        ),
+      backgroundColor: CColors.white,
+      appBar: AppBar(
+        elevation: 0.4,
+        shadowColor: CColors.white,
+        foregroundColor: CColors.dark_grey,
+        backgroundColor: CColors.white,
+        actions: const [
+          Expanded(
+            child: Center(
+                child:
+                    Text('Создание подборки', style: TextStyle(fontSize: 24))),
+          ),
+        ],
       ),
-      )
-    );
-  }
-  Widget imageLoad() {
-    return Stack(children: <Widget>[
-      Padding(
-        padding: const EdgeInsets.fromLTRB(30, 0, 0, 0),
+      body: SafeArea(
         child: Container(
-          height: 300,
-          width: 310,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(15),
-            image: DecorationImage(
-              image: _imageFile==null
-                  ? AssetImage("assets/images/Background.png")
-                  : FileImage(File(_imageFile.path)),
-              fit: BoxFit.cover
-            )
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
+          child: SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                imageLoad(),
+
+                const SizedBox(height: 16),
+                Row(
+                  children: [
+                    Expanded(
+                      child: SecondaryButton(
+                          text: 'Сделать фото',
+                          onTap: () => takePhoto(ImageSource.camera)),
+                    ),
+                    const SizedBox(width: 16),
+                    Expanded(
+                      child: SecondaryButton(
+                          text: 'Загрузить',
+                          onTap: () => takePhoto(ImageSource.gallery)),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 16),
+                const Text(
+                  "Название*",
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+                const TextField(
+                  decoration:
+                      InputDecoration(hintText: 'Укажите название подборки'),
+                ),
+                const SizedBox(height: 20),
+                const Text(
+                  "Категории*",
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+                const TextField(
+                  decoration:
+                      InputDecoration(hintText: 'Укажите категории товаров'),
+                ),
+                const SizedBox(height: 20),
+                const Text(
+                  "Дополнительные товары",
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 20),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  child: SecondaryButton(
+                      text: 'Добавить из избранного', onTap: () {}),
+                ),
+                const SizedBox(height: 20),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  child: SecondaryButton(
+                      text: 'Добавить из карзины', onTap: () {}),
+                ),
+                const SizedBox(height: 20),
+              ],
+            ),
           ),
         ),
-      )
-    ],
+      ),
+    );
+  }
+
+  Widget imageLoad() {
+    return GestureDetector(
+      child: Container(
+        height: 300,
+        width: MediaQuery.of(context).size.width,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(15),
+          image: DecorationImage(
+              image: _imageFile == null
+                  ? AssetImage("assets/images/Background.png")
+                  : FileImage(File(_imageFile.path)),
+              fit: BoxFit.cover),
+        ),
+      ),
     );
   }
 
   void takePhoto(ImageSource source) async {
-    final pickedFile = await _picker.getImage(
+    final pickedFile = await _picker.pickImage(
       source: source,
     );
-    setState(() {
-      _imageFile = pickedFile;
-    });
+    _imageFile = pickedFile;
+    setState(() {});
   }
 }
-

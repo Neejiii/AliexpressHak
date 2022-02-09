@@ -1,13 +1,13 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mobile/components/theme.dart';
-import 'package:mobile/pages/favorite/favorite_load.dart';
 import 'package:mobile/pages/shop/create_collection/create_collection_page.dart';
-import 'package:mobile/pages/shop/shop_load.dart';
+import 'package:mobile/pages/shop/shop_page.dart';
 
 import 'account/profile.dart';
 import 'cart/cart_load.dart';
+import 'compilations/new_compilation.dart';
+import 'favorite/favorite_page.dart';
 
 class Navbar extends StatefulWidget {
   const Navbar({Key key}) : super(key: key);
@@ -47,9 +47,9 @@ class NavbarState extends State<Navbar> {
           )),
       body: IndexedStack(
         children: const [
-          ShopLoad(),
+          ShopPage(),
           CartLoad(),
-          FavoriteLoad(),
+          FavoritePage(),
           ProfilePage(),
         ],
         index: _seletedItem,
@@ -63,7 +63,7 @@ class NavbarState extends State<Navbar> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => const CreateCollectionPage(),
+            builder: (context) => NewCompilation(),
           ),
         ).then((value) => setState(() {}));
       },

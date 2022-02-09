@@ -4,7 +4,6 @@ import 'package:mobile/components/textfiled.dart';
 import 'package:mobile/components/theme.dart';
 import 'package:mobile/http_client.dart';
 import 'package:mobile/pages/nav_bar.dart';
-import 'package:mobile/pages/shop/shop_load.dart';
 
 class AuthPage extends StatelessWidget {
   const AuthPage({Key key}) : super(key: key);

@@ -41,13 +41,13 @@ class Category {
   bool isLiked;
 
   factory Category.fromJson(Map<String, dynamic> json) => Category(
-    setId: json["set_id"] ?? null,
-    userId: json["user_id"] ?? null,
-    categoryId: json["category_id"] ?? null,
-    text: json["text"] ?? null,
-    title: json["title"] ?? null,
-    pictureUrl: json["picture_url"] ?? null,
-    createdAt: json["created_at"] ?? null,
-    isLiked: json["is_liked"] ?? null,
+    setId: json["set_id"] ?? '',
+    userId: json["user_id"] ?? '',
+    categoryId: json["category_id"] ?? '',
+    text: json["text"] ?? '',
+    title: json["title"] ?? '',
+    pictureUrl: json["picture_url"] ?? '',
+    createdAt: json["created_at"] ?? '',
+    isLiked: json["is_liked"] ?? false,
   );
 }

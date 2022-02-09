@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/components/theme.dart';
 import 'package:mobile/http_client.dart';
-import 'package:mobile/models/singleton.dart';
+import 'package:mobile/models/collections.dart';
 import 'package:mobile/pages/shop/collections/collection_page.dart';
-import 'package:provider/provider.dart';
 
 class CollectionCard extends StatefulWidget {
-  final int index;
+  final Category collection;
 
-  const CollectionCard({Key key, this.index}) : super(key: key);
+  const CollectionCard({Key key, this.collection}) : super(key: key);
 
   @override
   _CollectionCardState createState() => _CollectionCardState();
@@ -17,8 +16,7 @@ class CollectionCard extends StatefulWidget {
 class _CollectionCardState extends State<CollectionCard> {
   @override
   Widget build(BuildContext context) {
-    final index = widget.index;
-    final collections = Provider.of<SingletonProvider>(context).collections;
+    final collection = widget.collection;
 
     return GestureDetector(
       onTap: () {
@@ -58,8 +56,7 @@ class _CollectionCardState extends State<CollectionCard> {
                           child: Container(
                             decoration: BoxDecoration(
                               image: DecorationImage(
-                                image: NetworkImage(
-                                    collections.categories[index].pictureUrl),
+                                image: NetworkImage(collection.pictureUrl),
                                 fit: BoxFit.fill,
                               ),
                             ),
@@ -80,19 +77,15 @@ class _CollectionCardState extends State<CollectionCard> {
                         child: GestureDetector(
                           onTap: () {
                             HttpClient()
-                                .favorite(context,
-                                    collections.categories[index].setId)
-                                .then((value) => () {
-                                      collections.categories[index].isLiked =
-                                          !collections
-                                              .categories[index].isLiked;
-                                      setState(() {});
-                                    });
+                                .favorite(context, collection.setId)
+                                .then((value) => () {});
+                            collection.isLiked = !collection.isLiked;
+                            setState(() {});
                           },
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              collections.categories[index].isLiked
+                              collection.isLiked
                                   ? const Icon(
                                       Icons.favorite,
                                       color: CColors.dark_grey,
@@ -123,14 +116,14 @@ class _CollectionCardState extends State<CollectionCard> {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       Text(
-                        collections.categories[index].title,
+                        collection.title,
                         overflow: TextOverflow.ellipsis,
                         maxLines: 2,
                         style: const TextStyle(
                             fontWeight: FontWeight.w500, fontSize: 15),
                       ),
                       Text(
-                        collections.categories[index].text,
+                        collection.text,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         textAlign: TextAlign.left,
