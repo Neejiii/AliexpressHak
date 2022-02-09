@@ -14,6 +14,10 @@ class HttpClient {
   var dio = Dio();
   static const url = 'http://151.248.117.229:8000';
 
+
+
+  /// АВТОРИЗАЦИЯ
+
   Future<String> login(context, String first, String second) async {
     Response response = await dio.post(
       url + "/v1/api/dau/login",
@@ -28,6 +32,10 @@ class HttpClient {
       throw ('getCatalogs STATUS CODE: ' + response.statusCode.toString());
     }
   }
+
+
+
+  /// РАБОТА С КАТАЛОГОМ
 
   Future<CategoriesModel> getCategories(context) async {
     var token = Provider.of<SingletonProvider>(context, listen: false).token;
@@ -96,6 +104,9 @@ class HttpClient {
     }
   }
 
+
+  /// ПОДРОБНЫЕ
+
   Future<ProductModel> getProduct(String id) async {
     final response = await http.get(Uri.http(url, "/v1/api/dau/products/$id"));
     print(utf8.decode(response.bodyBytes));
@@ -111,6 +122,22 @@ class HttpClient {
     final response = await dio.post(
       url + "/v1/api/dau/favorites",
       data: {'id': productId, 'like_type': 'product'},
+      options: Options(
+          responseType: ResponseType.plain,
+          headers: {'Authorization': 'Bearer $token'}),
+    );
+    print(response);
+    if (response.statusCode == 200) {
+      return response.statusCode;
+    } else {
+      throw ('favorite STATUS CODE: ' + response.statusCode.toString());
+    }
+  }
+
+  Future<int> createCollection(context, List<String> categoriesIds, String name) async {
+    var token = Provider.of<SingletonProvider>(context, listen: false).token;
+    final response = await dio.post(
+      url + "/v1/api/dau/favorites",
       options: Options(
           responseType: ResponseType.plain,
           headers: {'Authorization': 'Bearer $token'}),

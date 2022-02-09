@@ -18,14 +18,13 @@ dependencies:
   flutter_svg: ^1.0.3
   shared_preferences: ^2.0.13
   dio: ^4.0.4
+  open_file: ^3.2.1
+  multi_select_flutter: ^4.0.0
+  image_picker: ^0.8.4+7
 
   cupertino_icons: ^1.0.2
 
-  #open images
-  image_picker: ^0.8.4+7
 
-  #open files
-  open_file: ^3.2.1
 
 dev_dependencies:
   flutter_test:
