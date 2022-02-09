@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
         ),
         home: const Scaffold(
           body: SafeArea(
-            child: AuthPage(),
+            child: NewCompilation(),
           ),
         ),
       ),

@@ -21,6 +21,12 @@ dependencies:
 
   cupertino_icons: ^1.0.2
 
+  #open images
+  image_picker: ^0.8.4+7
+
+  #open files
+  open_file: ^3.2.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

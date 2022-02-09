@@ -1,6 +1,11 @@
+import 'dart:io';
+
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:open_file/open_file.dart';
+import 'package:image_picker/image_picker.dart';
 
 class NewCompilation extends StatefulWidget {
   const NewCompilation({Key key}) : super(key: key);
@@ -11,6 +16,9 @@ class NewCompilation extends StatefulWidget {
 
 class _NewCompilationState extends State<NewCompilation> {
 
+  PickedFile _imageFile;
+  final ImagePicker _picker = ImagePicker();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,7 +26,7 @@ class _NewCompilationState extends State<NewCompilation> {
         child: SingleChildScrollView(
           scrollDirection: Axis.vertical,
           child: Column(
-          children: [
+          children: <Widget>[
             SizedBox(
               height: 60,
               width: 414,
@@ -45,27 +53,7 @@ class _NewCompilationState extends State<NewCompilation> {
               child: Stack(
                 // alignment: Alignment.centerLeft,
                 children: <Widget>[
-
-                  Positioned(
-                    child: SizedBox(
-                    height: 300,
-                    width: 298,
-                    child: Image.asset('assets/images/Background.png'),
-                  ),
-                    bottom: 80,
-                    right: 115,
-                  ),
-                  Positioned(
-                    child: SizedBox(
-                      height: 300,
-                      width: 298,
-                      child: Image.asset('assets/images/Background_two.png'),
-                    ),
-                    bottom: 80,
-                    left: 230,
-                  ),
-
-
+                  imageLoad(),
                   Positioned(
                     top: 50,
                     right: 160,
@@ -146,7 +134,9 @@ class _NewCompilationState extends State<NewCompilation> {
                                 color: Colors.black26,
                               )
                           ),
-                          child: TextButton(onPressed: (){}, child: Text('Сделать фото', style: TextStyle(
+                          child: TextButton(onPressed: () {
+                            takePhoto(ImageSource.camera);
+                          }, child: Text('Сделать фото', style: TextStyle(
                             fontFamily: 'Montserrat',
                             fontSize: 13,
                             fontWeight: FontWeight.bold,
@@ -166,7 +156,9 @@ class _NewCompilationState extends State<NewCompilation> {
                               color: Colors.black26,
                             )
                           ),
-                          child: TextButton(onPressed: (){}, child: Text('Загрузить', style: TextStyle(
+                          child: TextButton(onPressed: () async {
+                            takePhoto(ImageSource.gallery);
+                          }, child: Text('Загрузить', style: TextStyle(
                             fontSize: 13,
                             fontFamily: 'Montserrat',
                             fontWeight: FontWeight.bold,
@@ -261,6 +253,26 @@ class _NewCompilationState extends State<NewCompilation> {
       ),
       )
     );
+  }
+  Widget imageLoad() {
+    return Stack(children: <Widget>[
+      SizedBox(
+        height: 300,
+        width: 250,
+        child: _imageFile==null
+          ? Image.asset("assets/images/Background.png")
+          : FileImage(File(_imageFile.path)),)
+    ],
+    );
+  }
+
+  void takePhoto(ImageSource source) async {
+    final pickedFile = await _picker.getImage(
+      source: source,
+    );
+    setState(() {
+      _imageFile = pickedFile;
+    });
   }
 }
 
