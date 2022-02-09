@@ -50,7 +50,7 @@ class _NewCompilationState extends State<NewCompilation> {
             SizedBox(
               height: 380,
               width: 500,
-              child: Stack(
+              child: Stack (
                 // alignment: Alignment.centerLeft,
                 children: <Widget>[
                   imageLoad(),
@@ -256,12 +256,22 @@ class _NewCompilationState extends State<NewCompilation> {
   }
   Widget imageLoad() {
     return Stack(children: <Widget>[
-      SizedBox(
-        height: 300,
-        width: 250,
-        child: _imageFile==null
-          ? Image.asset("assets/images/Background.png")
-          : FileImage(File(_imageFile.path)),)
+      Padding(
+        padding: const EdgeInsets.fromLTRB(30, 0, 0, 0),
+        child: Container(
+          height: 300,
+          width: 310,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(15),
+            image: DecorationImage(
+              image: _imageFile==null
+                  ? AssetImage("assets/images/Background.png")
+                  : FileImage(File(_imageFile.path)),
+              fit: BoxFit.cover
+            )
+          ),
+        ),
+      )
     ],
     );
   }
