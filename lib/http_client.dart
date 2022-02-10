@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:http/http.dart' as http;
 import 'package:mobile/models/product.dart';
 import 'package:mobile/models/singleton.dart';
+import 'package:mobile/models/comments.dart';
 import 'package:provider/provider.dart';
 
 import 'models/categories.dart';
@@ -149,4 +150,16 @@ class HttpClient {
       throw ('favorite STATUS CODE: ' + response.statusCode.toString());
     }
   }
+
+
+  Future<CommentsModel> GetComments(String id) async {
+    final response = await http.get(Uri.http(url, "/v1/api/dau/comments$id"));
+    print(utf8.decode(response.bodyBytes));
+    if (response.statusCode == 200) {
+      return commentsModelFromJson(utf8.decode(response.bodyBytes));
+    } else {
+      throw ('getProduct STATUS CODE: ' + response.statusCode.toString());
+    }
+  }
+
 }

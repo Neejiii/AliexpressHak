@@ -5,6 +5,7 @@ import 'package:mobile/components/circular_indicator.dart';
 import 'package:mobile/components/theme.dart';
 import 'package:mobile/models/products.dart';
 import 'package:provider/provider.dart';
+import 'package:mobile/models/comments.dart';
 
 import '../../../models/singleton.dart';
 
@@ -18,6 +19,7 @@ class ProductPage extends StatefulWidget {
 }
 
 class _ProductPageState extends State<ProductPage> {
+  Comment commment;
   Product product;
   int _index = 0;
   bool scrollEnd = true;
@@ -25,7 +27,10 @@ class _ProductPageState extends State<ProductPage> {
 
   @override
   Widget build(BuildContext context) {
+    final index = widget.index;
+    final collections = Provider.of<SingletonProvider>(context).products;
     final products = Provider.of<SingletonProvider>(context).products;
+    final comment = Provider.of<SingletonProvider>(context).comments;
     return Scaffold(
       body: Stack(
         children: [
@@ -55,10 +60,13 @@ class _ProductPageState extends State<ProductPage> {
                         children: [
                           Hero(
                             tag: products.categories[widget.index].title,
-                            child: Container(child: const Placeholder()),
+                            child: Container(decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: NetworkImage(
+                                    collections.categories[index].pictureUrl),
+                              ),
+                            ),),
                           ),
-                          const Placeholder(),
-                          const Placeholder()
                         ],
                       ),
                     ),
@@ -136,6 +144,15 @@ class _ProductPageState extends State<ProductPage> {
                                   style: TextStyle(
                                       fontSize: 17, color: Color(0xffAAAAAA))),
                               const SizedBox(height: 49.51),
+                              const Text("Отзывы: 0",
+                                  style: TextStyle(
+                                      fontSize: 22, color: Color(0xff333333))),
+                              const SizedBox(height: 49.51),
+
+                              const Text("Отзывы пока-что отсутствуют",
+                                  style: TextStyle(
+                                      fontSize: 18, color: Color(0xffAAAAAA))),
+                              const SizedBox(height: 49.51),
                               const Text("Похожие товары",
                                   style: TextStyle(
                                       fontSize: 22, color: Color(0xff333333))),
@@ -152,8 +169,12 @@ class _ProductPageState extends State<ProductPage> {
                                             borderRadius:
                                                 BorderRadius.circular(8)),
                                         child: Row(children: [
-                                          const Placeholder(),
+                                          SizedBox(
+                                              height: 100,
+                                              width: 50,
+                                              child: Image(image: AssetImage("assets/images/chainik.png"))),
                                           const SizedBox(width: 12),
+
                                           Column(
                                               mainAxisAlignment:
                                                   MainAxisAlignment.spaceEvenly,
@@ -161,7 +182,7 @@ class _ProductPageState extends State<ProductPage> {
                                                   CrossAxisAlignment.start,
                                               children: [
                                                 const Text(
-                                                  "Капуста Савойская",
+                                                  "Чайник заварочный",
                                                   style: TextStyle(
                                                       fontWeight:
                                                           FontWeight.w500,
@@ -170,14 +191,14 @@ class _ProductPageState extends State<ProductPage> {
                                                 ),
                                                 const SizedBox(height: 3.05),
                                                 const Text(
-                                                  "Доступно: 100 кг",
+                                                  "Доступно: 157 шт.",
                                                   style: TextStyle(
                                                       fontSize: 12,
                                                       color: Color(0xff4DA64A)),
                                                 ),
                                                 const SizedBox(height: 2.63),
                                                 Row(children: const [
-                                                  Text("50",
+                                                  Text("1850",
                                                       style: TextStyle(
                                                           fontWeight:
                                                               FontWeight.w500,
@@ -201,7 +222,10 @@ class _ProductPageState extends State<ProductPage> {
                                               BorderRadius.circular(8)),
                                       child: Row(
                                         children: [
-                                          const Placeholder(),
+                                          SizedBox(
+                                            height: 100,
+                                              width: 50,
+                                              child: Image(image: AssetImage("assets/images/smesytel.png"))),
                                           const SizedBox(width: 12),
                                           Column(
                                             mainAxisAlignment:
@@ -210,7 +234,7 @@ class _ProductPageState extends State<ProductPage> {
                                                 CrossAxisAlignment.start,
                                             children: [
                                               const Text(
-                                                "Капуста Савойская",
+                                                "Кухонный смеситель",
                                                 style: TextStyle(
                                                     fontWeight: FontWeight.w500,
                                                     fontSize: 18,
@@ -218,7 +242,7 @@ class _ProductPageState extends State<ProductPage> {
                                               ),
                                               const SizedBox(height: 3.05),
                                               const Text(
-                                                "Доступно: 100 кг",
+                                                "Доступно: 214 шт.",
                                                 style: TextStyle(
                                                     fontSize: 12,
                                                     color: Color(0xff4DA64A)),
@@ -227,7 +251,7 @@ class _ProductPageState extends State<ProductPage> {
                                               Row(
                                                 children: const [
                                                   Text(
-                                                    "50",
+                                                    "3599",
                                                     style: TextStyle(
                                                       fontWeight:
                                                           FontWeight.w500,
@@ -241,6 +265,57 @@ class _ProductPageState extends State<ProductPage> {
                                                         fontSize: 18,
                                                         color:
                                                             Color(0xffAAAAAA)),
+                                                  )
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.fromLTRB(60, 0, 0, 0),
+                                            child: SizedBox(
+                                                height: 100,
+                                                width: 50,
+                                                child: Image(image: AssetImage("assets/images/filter.png"))),
+                                          ),
+                                          const SizedBox(width: 12),
+                                          Column(
+                                            mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                            crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                            children: [
+                                              const Text(
+                                                "Фильтр для очищения воды",
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.w500,
+                                                    fontSize: 18,
+                                                    color: Color(0xff333333)),
+                                              ),
+                                              const SizedBox(height: 3.05),
+                                              const Text(
+                                                "Доступно: 357 шт.",
+                                                style: TextStyle(
+                                                    fontSize: 12,
+                                                    color: Color(0xff4DA64A)),
+                                              ),
+                                              const SizedBox(height: 2.63),
+                                              Row(
+                                                children: const [
+                                                  Text(
+                                                    "2499",
+                                                    style: TextStyle(
+                                                      fontWeight:
+                                                      FontWeight.w500,
+                                                      fontSize: 22,
+                                                      color: Color(0xff333333),
+                                                    ),
+                                                  ),
+                                                  Text(
+                                                    "₽",
+                                                    style: TextStyle(
+                                                        fontSize: 18,
+                                                        color:
+                                                        Color(0xffAAAAAA)),
                                                   )
                                                 ],
                                               ),
