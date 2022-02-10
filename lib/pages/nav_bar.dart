@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mobile/components/theme.dart';
-import 'package:mobile/pages/shop/create_collection/create_collection_page.dart';
 import 'package:mobile/pages/shop/shop_page.dart';
 
 import 'account/profile.dart';
 import 'cart/cart_load.dart';
-import 'compilations/new_compilation.dart';
+import 'create_collection/new_compilation.dart';
 import 'favorite/favorite_page.dart';
 
 class Navbar extends StatefulWidget {
@@ -63,7 +62,7 @@ class NavbarState extends State<Navbar> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => NewCompilation(),
+            builder: (context) => const NewCompilation(),
           ),
         ).then((value) => setState(() {}));
       },

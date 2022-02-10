@@ -5,7 +5,7 @@ import 'package:mobile/models/collections.dart';
 import 'package:mobile/pages/shop/collections/collection_page.dart';
 
 class CollectionCard extends StatefulWidget {
-  final Category collection;
+  final Collection collection;
 
   const CollectionCard({Key key, this.collection}) : super(key: key);
 
@@ -77,8 +77,11 @@ class _CollectionCardState extends State<CollectionCard> {
                         child: GestureDetector(
                           onTap: () {
                             HttpClient()
-                                .favorite(context, collection.setId)
-                                .then((value) => () {});
+                                .favorite(context, collection.setId, 'set')
+                                .then((value) => () {
+                                      collection.isLiked = !collection.isLiked;
+                                      setState(() {});
+                                    });
                             collection.isLiked = !collection.isLiked;
                             collection.likeCount = collection.likeCount + 1;
                             setState(() {});

@@ -18,7 +18,7 @@ class _ProductCardState extends State<ProductCard> {
   @override
   Widget build(BuildContext context) {
     final index = widget.index;
-    final collections = Provider.of<SingletonProvider>(context).products;
+    final products = Provider.of<SingletonProvider>(context).products;
     return GestureDetector(
       onTap: () {
         Navigator.push(
@@ -58,7 +58,7 @@ class _ProductCardState extends State<ProductCard> {
                             decoration: BoxDecoration(
                               image: DecorationImage(
                                 image: NetworkImage(
-                                    collections.categories[index].pictureUrl),
+                                    products.categories[index].pictureUrl),
                                 fit: BoxFit.fill,
                               ),
                             ),
@@ -78,20 +78,22 @@ class _ProductCardState extends State<ProductCard> {
                         ),
                         child: GestureDetector(
                           onTap: () {
-                            // HttpClient()
-                            //     .favorite(context,
-                            //     collections.categories[index].productId)
-                            //     .then((value) => () {
-                            //   collections.categories[index].isLiked =
-                            //   !collections
-                            //       .categories[index].isLiked;
-                            //   setState(() {});
-                            // });
+                            HttpClient()
+                                .favorite(context,
+                                    products.categories[index].productId, 'product')
+                                .then((value) => () {
+                                      products.categories[index].isLiked =
+                                          !products.categories[index].isLiked;
+                                      setState(() {});
+                                    });
+                            products.categories[index].isLiked = !products.categories[index].isLiked;
+                            products.categories[index].likeCount = products.categories[index].likeCount + 1;
+                            setState(() {});
                           },
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              collections.categories[index].isLiked
+                              products.categories[index].isLiked
                                   ? const Icon(
                                       Icons.favorite,
                                       color: CColors.dark_grey,
@@ -102,7 +104,7 @@ class _ProductCardState extends State<ProductCard> {
                                       color: CColors.dark_grey,
                                       size: 20,
                                     ),
-                              Text(collections.categories[index].likeCount
+                              Text(products.categories[index].likeCount
                                   .toString()),
                             ],
                           ),
@@ -123,7 +125,7 @@ class _ProductCardState extends State<ProductCard> {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       Text(
-                        collections.categories[index].title,
+                        products.categories[index].title,
                         overflow: TextOverflow.ellipsis,
                         maxLines: 2,
                         style: const TextStyle(
@@ -134,8 +136,7 @@ class _ProductCardState extends State<ProductCard> {
                           children: [
                             FittedBox(
                               child: Text(
-                                (double.parse(collections
-                                                    .categories[index].price)
+                                (double.parse(products.categories[index].price)
                                                 .round() *
                                             0.8.round())
                                         .toString() +
@@ -150,7 +151,7 @@ class _ProductCardState extends State<ProductCard> {
                             ),
                             const SizedBox(width: 8),
                             Text(
-                              (double.parse(collections.categories[index].price)
+                              (double.parse(products.categories[index].price)
                                           .round())
                                       .toString() +
                                   '₽',

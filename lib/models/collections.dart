@@ -8,19 +8,19 @@ class CollectionsModel {
     this.categories,
   });
 
-  List<Category> categories;
+  List<Collection> categories;
 
   factory CollectionsModel.fromJson(Map<String, dynamic> json) =>
       CollectionsModel(
         categories: json["categories"] == null
             ? null
-            : List<Category>.from(
-                json["categories"].map((x) => Category.fromJson(x))),
+            : List<Collection>.from(
+                json["categories"].map((x) => Collection.fromJson(x))),
       );
 }
 
-class Category {
-  Category(
+class Collection {
+  Collection(
       {this.setId,
       this.userId,
       this.categoryId,
@@ -41,7 +41,7 @@ class Category {
   int likeCount;
   bool isLiked;
 
-  factory Category.fromJson(Map<String, dynamic> json) => Category(
+  factory Collection.fromJson(Map<String, dynamic> json) => Collection(
         setId: json["set_id"] ?? '',
         userId: json["user_id"] ?? '',
         categoryId: json["category_id"] ?? '',

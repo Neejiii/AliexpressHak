@@ -8,7 +8,7 @@ import 'package:provider/provider.dart';
 import '../../models/favorites.dart';
 
 class FavoriteCard extends StatefulWidget {
-  final Category favorite;
+  final Favorite favorite;
 
   const FavoriteCard({Key key, this.favorite}) : super(key: key);
 
@@ -25,7 +25,7 @@ class _FavoriteCardState extends State<FavoriteCard> {
       onTap: () {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => CollectionPage()),
+          MaterialPageRoute(builder: (context) => const CollectionPage()),
         );
       },
       child: Container(
@@ -79,15 +79,7 @@ class _FavoriteCardState extends State<FavoriteCard> {
                         ),
                         child: GestureDetector(
                           onTap: () {
-                            HttpClient()
-                                .favorite(context, favorite.setId)
-                                .then((value) => () {
-                                      favorite.isLiked = !favorite.isLiked;
-                                      Provider.of<SingletonProvider>(context,
-                                              listen: true)
-                                          .updateProvider();
-                                      setState(() {});
-                                    });
+                            favorite.isLiked = !favorite.isLiked;
                           },
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,

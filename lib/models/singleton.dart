@@ -12,7 +12,8 @@ class SingletonProvider with ChangeNotifier {
   ProductsModel products;
   CommentsModel comments;
 
-  FavoritesModel favorites;
+  FavoritesModel favorites_collection;
+  FavoritesModel favorites_product;
 
   String token;
 

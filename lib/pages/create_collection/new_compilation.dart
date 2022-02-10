@@ -13,6 +13,7 @@ import 'package:multi_select_flutter/multi_select_flutter.dart';
 
 import '../../components/theme.dart';
 import '../../models/categories.dart';
+import 'add_from_favorites.dart';
 
 class NewCompilation extends StatefulWidget {
   const NewCompilation({Key key}) : super(key: key);
@@ -25,9 +26,11 @@ class _NewCompilationState extends State<NewCompilation> {
   XFile _imageFile;
   final ImagePicker _picker = ImagePicker();
 
-  TextEditingController name;
+  TextEditingController title = TextEditingController();
+  TextEditingController textField = TextEditingController();
 
   bool isLoaded = false;
+  List selectedProducts = [];
   var _selected;
 
   CategoriesModel categories;
@@ -99,9 +102,20 @@ class _NewCompilationState extends State<NewCompilation> {
                             fontSize: 18, fontWeight: FontWeight.bold),
                       ),
                       TextField(
-                        controller: name,
-                        decoration: InputDecoration(
+                        controller: title,
+                        decoration: const InputDecoration(
                             hintText: 'Укажите название подборки'),
+                      ),
+                      const SizedBox(height: 20),
+                      const Text(
+                        "Описание*",
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold),
+                      ),
+                      TextField(
+                        controller: textField,
+                        decoration: const InputDecoration(
+                            hintText: 'Укажите описание подборки'),
                       ),
                       const SizedBox(height: 20),
                       const Text(
@@ -142,19 +156,39 @@ class _NewCompilationState extends State<NewCompilation> {
                       SizedBox(
                         width: MediaQuery.of(context).size.width,
                         child: SecondaryButton(
-                            text: 'Добавить из избранного', onTap: () {}),
+                          text: 'Добавить из избранного',
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => SelectFromFavorites(),
+                              ),
+                            ).then(
+                              (value) => {
+                                setState(() {
+                                  selectedProducts.add(value);
+                                })
+                              },
+                            );
+                          },
+                        ),
                       ),
+                      Text('Выбранных товаров: ' +
+                          selectedProducts.length.toString()),
                       const SizedBox(height: 20),
                       SizedBox(
                         width: MediaQuery.of(context).size.width,
                         child: SecondaryButton(
-                            text: 'Добавить из карзины', onTap: () {}),
+                            text: 'Добавить из корзины', onTap: () {}),
                       ),
                       const SizedBox(height: 16),
                       MyButton(
                           text: 'Создать',
                           onTap: () {
-                            HttpClient().createCollection(context, _selected, name.text).then((e)=> {});
+                            HttpClient()
+                                .createCollection(context, selectedProducts,
+                                    _selected, title.text, textField.text)
+                                .then((e) => {});
                           })
                     ],
                   ),
