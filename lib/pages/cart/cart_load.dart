@@ -15,8 +15,8 @@ class _CartLoadState extends State<CartLoad> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: isLoaded
-            ? const CartPage()
-            : const Center(child: CircularIndicator()));
+        body:
+            const CartPage()
+           );
   }
 }

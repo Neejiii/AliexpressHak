@@ -3,6 +3,8 @@ import 'package:mobile/components/theme.dart';
 import 'package:mobile/models/singleton.dart';
 import 'package:mobile/pages/auth/auth_page.dart';
 import 'package:provider/provider.dart';
+import 'package:mobile/pages/cart/cart_page.dart';
+import 'package:mobile/pages/nav_bar.dart';
 
 void main() {
   runApp(const MyApp());

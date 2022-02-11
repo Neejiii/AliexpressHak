@@ -88,8 +88,11 @@ class NavbarState extends State<Navbar> {
       height: 40,
       child: InkWell(
         onTap: () {
+          print('1234');
           _seletedItem = index;
-          setState(() {});
+          setState(() {
+            ShopPage() => ShopPage();
+          });
         },
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
